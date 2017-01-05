@@ -104,5 +104,15 @@ function cellClick(row, col) {
         var imgTag = getImgTag(player_turn);
 
         $("#" + getCellId(row, col)).append(imgTag);
+
+        if (GAME.gameOver) {
+            for (var i = 0; i < GAME.victoryCells.length; i++) {
+                var [row, col] = GAME.victoryCells[i];
+
+                $("#" + getCellId(row, col)).css("background-color", "pink");
+            }
+
+
+        }
     }
 }
