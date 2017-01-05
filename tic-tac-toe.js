@@ -52,6 +52,28 @@ class TicTacToe {
             }
         }
 
+        var a = this.matrix[0][0];
+        var b = this.matrix[1][1];
+        var c = this.matrix[2][2];
+        if (a == b && b == c && a != EMPTY) {
+            this.gameOver = true;
+            this.victor = a;
+            this.victoryCells = [[0, 0], [1, 1], [2, 2]];
+            return;
+        }
+
+        var a = this.matrix[0][2];
+        var b = this.matrix[1][1];
+        var c = this.matrix[2][0];
+        if (a == b && b == c && a != EMPTY) {
+            this.gameOver = true;
+            this.victor = a;
+            this.victoryCells = [[0, 2], [1, 1], [2, 0]];
+            return;
+        }
+
+
+
     }
 
     // Returns true iff the click results in a valid move 
