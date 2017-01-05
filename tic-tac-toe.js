@@ -24,7 +24,25 @@ class TicTacToe {
         this.victoryCells = undefined;
     }
 
-    checkVictory() {
+    clone() {
+        newTicTacTow = new TicTacToe();
+
+        for (var row = 0; row < NUM_ROWS; row++) {
+            for (col = 0; col < NUM_COLS; col++) {
+                newTicTacToe.matrix[row][col] = this.matrix[row][col];
+            }
+        }
+
+        newTicTacToe.player_turn = this.player_turn;
+        newTicTacToe.gameOver = this.gameOver;
+        newTicTacToe.victor = this.victor;
+
+        // It's OK to clone by reference here, sicne this.victoryCells is
+        // immutable
+        newTicTacToe.victoryCells = this.victoryCells;
+    }
+
+    checkGameOver() {
 
         for (var row = 0; row < NUM_ROWS; row++) {
             var a = this.matrix[row][0];
@@ -71,6 +89,20 @@ class TicTacToe {
             this.victoryCells = [[0, 2], [1, 1], [2, 0]];
             return;
         }
+
+        var containsEmptyCell = false;
+
+        for (var row = 0; row < NUM_ROWS; row++) {
+            for (var col = 0; col < NUM_COLS; col++) {
+                if (this.matrix[row][col] == EMPTY) {
+                    containsEmptyCell = true;
+                }
+            }
+        }
+
+        if (!containsEmptyCell) {
+            this.gameOver = true;
+        }
     }
 
     // Returns true iff the click results in a valid move 
@@ -89,11 +121,26 @@ class TicTacToe {
             this.player_turn = PLAYER_X;
         }
 
-        this.checkVictory();
+        this.checkGameOver();
 
         return [true, old_player_turn];
     }
 }
+
+class Node {
+
+    constructor(ticTacToe) {
+        this.ticTacToe = ticTacToe
+        this.children = [];
+    }
+
+    branch() {
+
+    }
+
+
+}
+
 
 var GAME = new TicTacToe();
 
@@ -124,7 +171,7 @@ function cellClick(row, col) {
 
         $("#" + getCellId(row, col)).append(imgTag);
 
-        if (GAME.gameOver) {
+        if (GAME.gameOver && GAME.victor != undefined) {
             for (var i = 0; i < GAME.victoryCells.length; i++) {
                 var [row, col] = GAME.victoryCells[i];
 
