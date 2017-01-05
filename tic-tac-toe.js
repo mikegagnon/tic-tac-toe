@@ -6,6 +6,9 @@ EMPTY = 0;
 PLAYER_X = 1;
 PLAYER_O = 2;
 
+NUM_ROWS = 3;
+NUM_COLS = 3;
+
 class TicTacToe {
 
     constructor() {
@@ -16,6 +19,60 @@ class TicTacToe {
         ];
 
         this.player_turn = PLAYER_X;
+        this.gameOver = false;
+        this.victor = undefined;
+        this.victoryCells = undefined;
+    }
+
+    checkVictory() {
+
+        for (var row = 0; row < NUM_ROWS; row++) {
+            var a = this.matrix[row][0];
+            var b = this.matrix[row][1];
+            var c = this.matrix[row][2];
+
+            if (a == b && b == c && a != EMPTY) {
+                this.gameOver = true;
+                this.victor = a;
+                this.victoryCells = [[row, 0], [row, 1], [row, 2]];
+                return;
+            }
+        }
+
+        for (var col = 0; col < NUM_COLS; col++) {
+            var a = this.matrix[0][col];
+            var b = this.matrix[1][col];
+            var c = this.matrix[2][col];
+
+            if (a == b && b == c && a != EMPTY) {
+                this.gameOver = true;
+                this.victor = a;
+                this.victoryCells = [[0, col], [1, col], [2, col]];
+                return;
+            }
+        }
+
+    }
+
+    // Returns true iff the click results in a valid move 
+    click(row, col) {
+        if (this.matrix[row][col] != EMPTY || this.gameOver) {
+            return [false, undefined];
+        } 
+
+        this.matrix[row][col] = this.player_turn;
+
+        var old_player_turn = this.player_turn;
+
+        if (this.player_turn == PLAYER_X) {
+            this.player_turn = PLAYER_O;
+        } else {
+            this.player_turn = PLAYER_X;
+        }
+
+        this.checkVictory();
+
+        return [true, old_player_turn];
     }
 }
 
@@ -40,22 +97,12 @@ function getImgTag(player_turn) {
 
 function cellClick(row, col) {
 
-    console.log("asdf")
+    var [valid_move, player_turn] = GAME.click(row, col);
 
-    if (GAME.matrix[row][col] != EMPTY) {
-        return;
-    } 
+    if (valid_move) {
 
-    GAME.matrix[row][col] = GAME.player_turn;
+        var imgTag = getImgTag(player_turn);
 
-    var imgTag= getImgTag(GAME.player_turn);
-
-    $("#" + getCellId(row, col)).append(imgTag);
-
-    if (GAME.player_turn == PLAYER_X) {
-        GAME.player_turn = PLAYER_O;
-    } else {
-        GAME.player_turn = PLAYER_X;
+        $("#" + getCellId(row, col)).append(imgTag);
     }
-
 }
