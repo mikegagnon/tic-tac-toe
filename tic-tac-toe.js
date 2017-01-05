@@ -25,10 +25,10 @@ class TicTacToe {
     }
 
     clone() {
-        newTicTacTow = new TicTacToe();
+        var newTicTacToe = new TicTacToe();
 
         for (var row = 0; row < NUM_ROWS; row++) {
-            for (col = 0; col < NUM_COLS; col++) {
+            for (var col = 0; col < NUM_COLS; col++) {
                 newTicTacToe.matrix[row][col] = this.matrix[row][col];
             }
         }
@@ -40,6 +40,8 @@ class TicTacToe {
         // It's OK to clone by reference here, sicne this.victoryCells is
         // immutable
         newTicTacToe.victoryCells = this.victoryCells;
+
+        return newTicTacToe;
     }
 
     checkGameOver() {
@@ -136,13 +138,36 @@ class Node {
 
     branch() {
 
+        if (this.ticTacToe.gameOver) {
+            return;
+        }
+
+        for (var row = 0; row < NUM_ROWS; row++) {
+            for (var col = 0; col < NUM_COLS; col++) {
+                var newGame = this.ticTacToe.clone();
+                var [valid_move, _] = newGame.click(row, col);
+
+                if (valid_move) {
+                    var newNode = new Node(newGame);
+                    this.children.push(newNode);
+                    newNode.branch();
+                }
+            }
+        }
+
     }
-
-
 }
 
 
 var GAME = new TicTacToe();
+
+var node = new Node(GAME);
+node.branch();
+
+for (var i = 0; i < node.children; i++) {
+    console.log(node.children[i]);
+}
+
 
 function getCellId(row, col) {
     return "cell-" + row + "-" + col;
