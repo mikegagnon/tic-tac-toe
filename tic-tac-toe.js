@@ -71,9 +71,6 @@ class TicTacToe {
             this.victoryCells = [[0, 2], [1, 1], [2, 0]];
             return;
         }
-
-
-
     }
 
     // Returns true iff the click results in a valid move 
