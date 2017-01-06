@@ -18,7 +18,7 @@ And familiarity with OOP (object-orient programming) in JavaScript.
 - [Part 1. Two-player Tic Tac Toe]
   - [Lecture 1.1 Framework for `TicTacToe` class](#lec1-1)
   - [Lecture 1.2 Framework for controller and for `Viz` class](#lec1-2)
-  - [Challenge 1.3]
+  - [Challenge 1.3 Pretty graphics](#c1-3)
 
 ## <a name="lec1-1">Lecture 1.1 Framework for `TicTacToe` class</a>
 
@@ -312,3 +312,16 @@ var expected_matrix = [
 assert(matricesEqual(game.matrix, expected_matrix));
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+
+## <a name="c1-3">Challenge 1.3 Pretty graphics</a>
