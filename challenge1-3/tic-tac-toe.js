@@ -40,6 +40,8 @@ class TicTacToe {
             [EMPTY, EMPTY, EMPTY]
         ];
 
+        assert(player == PLAYER_X || player == PLAYER_O);
+
         // this.player always equals the player (either PLAYER_X or PLAYER_O)
         // who has the next move.
         this.player = player;
@@ -104,7 +106,7 @@ class TicTacToe {
 /*******************************************************************************
  * Controller code
  ******************************************************************************/
-var GAME = new TicTacToe();
+var GAME = new TicTacToe(PLAYER_X);
 var VIZ = new Viz();
 
 function cellClick(row, col) {
