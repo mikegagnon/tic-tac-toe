@@ -273,7 +273,7 @@ function cellClick(row, col, ai) {
             for (var i = 0; i < GAME.victoryCells.length; i++) {
                 var [row, col] = GAME.victoryCells[i];
 
-                $("#" + getCellId(row, col)).css("background-color", "pink");
+                $("#" + getCellId(row, col)).css("background-color", "#F7DC6F");
             }
 
         }
