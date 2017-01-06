@@ -15,10 +15,12 @@ And familiarity with OOP (object-orient programming) in JavaScript.
 
 ## Contents
 
-- [Lecture 1. Framework for `TicTacToe` class](#lec1)
-- [Lecture 2. Framework for controller and for `Viz` class](#lec2)
+- [Part 1. Two-player Tic Tac Toe]
+  - [Lecture 1.1 Framework for `TicTacToe` class](#lec1-1)
+  - [Lecture 1.2 Framework for controller and for `Viz` class](#lec1-2)
+  - [Challenge 1.3]
 
-## <a name="lec1">Lecture 1. Framework for `TicTacToe` class</a>
+## <a name="lec1-1">Lecture 1.1 Framework for `TicTacToe` class</a>
 
 Initialize your Tic Tac Toe directory with the following two files:
 
@@ -121,7 +123,7 @@ assert(matricesEqual(game.matrix, expected_matrix));
 
 
 
-## <a name="lec2">Lecture 2. Framework for controller and for `Viz` class</a>
+## <a name="lec1-2">Lecture 1.2 Framework for controller and for `Viz` class</a>
 
 Study this code until it makes 100% sense to you.
 
