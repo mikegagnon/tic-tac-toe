@@ -330,3 +330,17 @@ We will update the vizualization code to use pretty graphics.
 After this challenge, Tic Tac Toe will look something like this:
 
 <img src="pretty.png" width="315px">
+
+First, update the `Viz` constructor so it takes a `cell_size` argument,
+and sets `this.cell_size = cell_size`.
+
+```js
+class Viz {
+ 
+    ...
+    
+    constructor(cell_size) {
+        this.cell_size = cell_size;
+    }
+}
+```
