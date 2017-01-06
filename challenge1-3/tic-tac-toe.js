@@ -33,10 +33,11 @@ class TicTacToe {
 
     constructor() {
         this.matrix = [
-            [EMPTY, EMPTY,EMPTY],
-            [EMPTY, EMPTY,EMPTY],
-            [EMPTY, EMPTY,EMPTY]
+            [EMPTY, EMPTY, EMPTY],
+            [EMPTY, EMPTY, EMPTY],
+            [EMPTY, EMPTY, EMPTY]
         ];
+        this.player = PLAYER_X;
     }
 
     makeMove(row, col) {
@@ -44,9 +45,21 @@ class TicTacToe {
         assert(row >= 0 && row < NUM_ROWS);
         assert(col >= 0 && col < NUM_COLS);
 
-        this.matrix[row][col] = PLAYER_X;
+        if (this.matrix[row][col] != EMPTY) {
+            return new Move(false, undefined, undefined, undefined);
+        } 
 
-        return new Move(true, row, col, PLAYER_X);
+        this.matrix[row][col] = this.player;
+
+        var move = new Move(true, row, col, this.player);
+
+        if (this.player == PLAYER_X) {
+            this.player = PLAYER_O;
+        } else {
+            this.player = PLAYER_X;
+        }
+
+        return move;
     }
 
 }
@@ -60,34 +73,26 @@ class TicTacToe {
         return "cell-" + row + "-" + col;
     }
 
-    getImgTag(player) {
-        var filename;
-        if (player == PLAYER_X) {
-            filename = "player-x.png";
-        } else if (player == PLAYER_O) {
-            filename = "player-o.png";
-        } else {
-            assert(false);
-        }
-
-        return "<img src='" + filename + "' width=" + this.cell_size + " >";
-    }
-
-    constructor(cell_size) {
-        this.cell_size = cell_size;
-
-        $(".cell").css("height", this.cell_size);
-        $(".cell").css("width", this.cell_size);
-    }
+    constructor() { }
 
     drawMove(move) {
         if (!move.valid) {
             return;
         }
 
-        var cellId = Viz.getCellId(move.row, move.col);
-        var imgTag = this.getImgTag(move.player);
-        $("#" + cellId).append(imgTag);
+        var cellId = Viz.getCellId(move.row, move.col)
+
+        var char;
+
+        if (move.player == PLAYER_X) {
+            char = "X";
+        } else if (move.player == PLAYER_O) {
+            char = "O";
+        } else {
+            assert(false);
+        }
+
+        $("#" + cellId).text(char) ;
     }
  }
 
@@ -95,7 +100,7 @@ class TicTacToe {
  * Controller code
  ******************************************************************************/
 var GAME = new TicTacToe();
-var VIZ = new Viz(100);
+var VIZ = new Viz();
 
 function cellClick(row, col) {
 
