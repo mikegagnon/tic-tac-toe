@@ -18,6 +18,7 @@ And familiarity with OOP (object-orient programming) in JavaScript.
 - [Part 1. Two-player Tic Tac Toe]
   - [Lecture 1.1 Framework for `TicTacToe` class](#lec1-1)
   - [Lecture 1.2 Framework for controller and for `Viz` class](#lec1-2)
+  - [Challenge 1.3 X's and O's](#c1-3)
   - [Challenge 1.4 Pretty graphics](#c1-4)
 
 ## <a name="lec1-1">Lecture 1.1 Framework for `TicTacToe` class</a>
@@ -314,6 +315,50 @@ assert(matricesEqual(game.matrix, expected_matrix));
 
 
 
+
+
+
+
+
+
+
+
+## <a name="c1-3">Challenge 1.3 X's and O's</a>
+
+The game, as it is in [Lecture 1.2](#lec1-2), only allows
+moves for X's. Here, we will add O's to the game.
+
+### Update `TicTacToe` constructor
+
+```js
+class TicTacToe {
+
+    ...
+    
+    // player is either PLAYER_X or PLAYER_O, and indicates which player has
+    // the opening move
+    constructor(player) {
+        this.matrix = [
+            [EMPTY, EMPTY, EMPTY],
+            [EMPTY, EMPTY, EMPTY],
+            [EMPTY, EMPTY, EMPTY]
+        ];
+    
+        // this.player always equals the player (either PLAYER_X or PLAYER_O)
+        // who has the next move.
+        this.player = player;
+    }
+```
+
+### Update `makeMove(...)`
+
+Update `makeMove(...)` so that this.player alternates between X's and O's.
+
+And, write new tests that verify/refute the correctness of your program.
+
+### Hints
+
+- [Hint 1](#hint1-3-1)
 
 
 
