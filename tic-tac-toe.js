@@ -41,9 +41,9 @@ class Node {
         if (this.victor == undefined) {
             return 0;
         } else if (this.victor == PLAYER_X) {
-            return 1;
+            return Number.MAX_SAFE_INTEGER;
         } else {
-            return -1;
+            return Number.MIN_SAFE_INTEGER;;
         }
     }
 
@@ -67,6 +67,23 @@ class Node {
     }
 }
 
+// node is an object with three methods:
+//      - getGameOver(), which returns true if the node represents a game state
+//        where no more moves are possible
+//      - getValue(), a value representing the assessment of the game state --
+//        i.e. whether the gamestate favors one player more than the other. 
+//        Number.MAX_SAFE_INTEGER indicates that maximizingPlayer has won
+//        Number.MIN_SAFE_INTEGER indicates that maximizingPlayer has lost
+//        0 indicates the game is (or appears to be) a draw.
+//        Positive numbers indicate the game state favors the maximizing player:
+//        the larger the number, the more the game state appears to favor
+//        the maximizing player.
+//        Negative numbers indicate the game state does not favor the
+//        maximizing player: the smaller the number, the more the game state
+//        appears to favor the minimizing player.
+//      - getChildren() returns an array of nodes that are the offspring of this
+//        node.
+// maximizingPlayer is true if it is the maximizing players turn.
 function minMax(node, maximizingPlayer) {
     if (node.getGameOver()) {
         return node.getValue();
