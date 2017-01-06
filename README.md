@@ -18,7 +18,8 @@ And familiarity with OOP (object-orient programming) in JavaScript.
 - [Part 1. Two-player Tic Tac Toe]
   - [Lecture 1.1 Framework for `TicTacToe` class](#lec1-1)
   - [Lecture 1.2 Framework for controller and for `Viz` class](#lec1-2)
-  - [Challenge 1.3 Pretty graphics](#c1-3)
+  - [Challenge 1.3 X's and O's](#c1-3)
+  - [Challenge 1.4 Pretty graphics](#c1-4)
 
 ## <a name="lec1-1">Lecture 1.1 Framework for `TicTacToe` class</a>
 
@@ -322,9 +323,87 @@ assert(matricesEqual(game.matrix, expected_matrix));
 
 
 
+## <a name="c1-3">Challenge 1.3 X's and O's</a>
+
+The game, as it is in [Lecture 1.2](#lec1-2), only allows
+moves for X's. Here, we will add O's to the game.
+
+### Update `TicTacToe` constructor
+
+```js
+class TicTacToe {
+
+    ...
+    
+    // player is either PLAYER_X or PLAYER_O, and indicates which player has
+    // the opening move
+    constructor(player) {
+        this.matrix = [
+            [EMPTY, EMPTY, EMPTY],
+            [EMPTY, EMPTY, EMPTY],
+            [EMPTY, EMPTY, EMPTY]
+        ];
+    
+        assert(player == PLAYER_X || player == PLAYER_O);
+    
+        // this.player always equals the player (either PLAYER_X or PLAYER_O)
+        // who has the next move.
+        this.player = player;
+    }
+```
+
+### Update `GAME` initialization
+
+Recall, the controller code from [Lecture 1.2](#lec1-2), looks as follows:
+
+```js
+/*******************************************************************************
+ * Controller code
+ ******************************************************************************/
+var GAME = new TicTacToe();
+var VIZ = new Viz();
+
+...
+```
+
+Since the `TicTacToe` constructor has changed, we must update the `GAME` initialization:
+
+```js
+/*******************************************************************************
+ * Controller code
+ ******************************************************************************/
+var GAME = new TicTacToe(PLAYER_X); // <------------------------------------------------
+var VIZ = new Viz();
+
+...
+```
 
 
-## <a name="c1-3">Challenge 1.3 Pretty graphics</a>
+### Update `makeMove(...)`
+
+- In the `makeMove(...)` function, check to see if the move is valid. If it's not, then return
+  an appropriate `Move` object.
+- Update `makeMove(...)` so that this.player alternates between X's and O's
+- Fix tests that are broken (since the constructor for TicTacToe has changed, the old tests will fail)
+- Write new tests that verify/refute the correctness of your program
+
+### Hints
+
+- [Hint 1](#hint1-3-1)
+- [Hint 2](#hint1-3-2)
+- [Hint 3](#hint1-3-3)
+- [Hint 4](#hint1-3-4)
+
+
+
+
+
+
+
+
+
+
+## <a name="c1-4">Challenge 1.4 Pretty graphics</a>
 
 We will update the vizualization code to use pretty graphics.
 After this challenge, Tic Tac Toe will look something like this:
@@ -357,3 +436,138 @@ class Viz {
 ### The challenge
 The challenge is to update `drawMove(...)` so that it draws either `player-x.png` to the cell,
 or `player-o.png` to the cell, depending on `move.player`.
+
+
+
+
+
+
+
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="hint1-3-1">Hint 1 for Challenge 1.3</a>
+
+Check to see if the move is valid:
+
+```js
+class TicTacToe {
+
+    makeMove(row, col) {
+
+        assert(row >= 0 && row < NUM_ROWS);
+        assert(col >= 0 && col < NUM_COLS);
+
+        if (this.matrix[row][col] != EMPTY) {
+            return new Move(false, undefined, undefined, undefined);
+        } 
+        ...
+    }
+}
+```
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="hint1-3-2">Hint 2 for Challenge 1.3</a>
+
+Alterante turns between X's and O's:
+
+```js
+class TicTacToe {
+
+    makeMove(row, col) {
+
+        assert(row >= 0 && row < NUM_ROWS);
+        assert(col >= 0 && col < NUM_COLS);
+
+        if (this.matrix[row][col] != EMPTY) {
+            return new Move(false, undefined, undefined, undefined);
+        } 
+
+        this.matrix[row][col] = this.player;
+
+        var move = new Move(true, row, col, this.player);
+
+        if (this.player == PLAYER_X) {
+            this.player = PLAYER_O;
+        } else {
+            this.player = PLAYER_X;
+        }
+
+        return move;
+    }
+}
+```
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="hint1-3-3">Hint 3 for Challenge 1.3</a>
+
+Fix broken tests:
+
+```js
+// Test player-x makeMove(0, 0)
+var game = new TicTacToe(PLAYER_X); // <-------------------------
+game.makeMove(0, 0);
+var expected_matrix = [
+    [PLAYER_X, EMPTY, EMPTY],
+    [EMPTY,    EMPTY, EMPTY],
+    [EMPTY,    EMPTY, EMPTY]
+]
+assert(matricesEqual(game.matrix, expected_matrix));
+
+// Test player-x makeMove(1, 1)
+var game = new TicTacToe(PLAYER_X); // <-------------------------
+game.makeMove(1, 1);
+var expected_matrix = [
+    [EMPTY,    EMPTY,    EMPTY],
+    [EMPTY,    PLAYER_X, EMPTY],
+    [EMPTY,    EMPTY,    EMPTY]
+]
+assert(matricesEqual(game.matrix, expected_matrix));
+```
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="hint1-3-4">Hint 4 for Challenge 1.3</a>
+
+New tests:
+
+```js
+
+// Test opening player as PLAYER_O
+var game = new TicTacToe(PLAYER_O);
+game.makeMove(0, 0);
+var expected_matrix = [
+    [PLAYER_O, EMPTY,    EMPTY],
+    [EMPTY,    EMPTY,    EMPTY],
+    [EMPTY,    EMPTY,    EMPTY]
+]
+assert(matricesEqual(game.matrix, expected_matrix));
+
+// Test X then O then X
+var game = new TicTacToe(PLAYER_X);
+game.makeMove(1, 1);
+game.makeMove(0, 0);
+game.makeMove(2, 2);
+var expected_matrix = [
+    [PLAYER_O, EMPTY,    EMPTY],
+    [EMPTY,    PLAYER_X, EMPTY],
+    [EMPTY,    EMPTY,    PLAYER_X]
+]
+assert(matricesEqual(game.matrix, expected_matrix));
+
+// Test invalid move
+var game = new TicTacToe(PLAYER_X);
+game.makeMove(0, 0);
+var move = game.makeMove(0, 0);
+assert(!move.valid);
+var expected_matrix = [
+    [PLAYER_X, EMPTY, EMPTY],
+    [EMPTY,    EMPTY, EMPTY],
+    [EMPTY,    EMPTY, EMPTY]
+]
+assert(matricesEqual(game.matrix, expected_matrix));
+```
