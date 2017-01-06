@@ -60,17 +60,34 @@ class TicTacToe {
         return "cell-" + row + "-" + col;
     }
 
+    getImgTag(player) {
+        var filename;
+        if (player == PLAYER_X) {
+            filename = "player-x.png";
+        } else if (player == PLAYER_O) {
+            filename = "player-o.png";
+        } else {
+            assert(false);
+        }
+
+        return "<img src='" + filename + "' width=" + this.cell_size + " >";
+    }
+
     constructor(cell_size) {
         this.cell_size = cell_size;
+
         $(".cell").css("height", this.cell_size);
         $(".cell").css("width", this.cell_size);
     }
 
     drawMove(move) {
-        if (move.valid) {
-            var cellId = Viz.getCellId(move.row, move.col)
-            $("#" + cellId).text("X") ;
+        if (!move.valid) {
+            return;
         }
+
+        var cellId = Viz.getCellId(move.row, move.col);
+        var imgTag = this.getImgTag(move.player);
+        $("#" + cellId).append(imgTag);
     }
  }
 
