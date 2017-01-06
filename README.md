@@ -32,7 +32,6 @@ class TicTacToe {
 
     constructor() { }
 
-    play(row, col) { }
 }
 ```
 
