@@ -823,3 +823,163 @@ The solution is simply the union of all the hints:
     }
  }
 ```
+
+
+- [Hint 1](#hint1-5-1) Categories for game over
+- [Hint 2](#hint1-5-2) shell implementation
+- [Hint 3](#hint1-5-3) implementation of checkVictoryHorizontal
+- [Hint 4](#hint1-5-4) implementation of checkVictoryVertical
+- [Hint 5](#hint1-5-5) implementation of checkVictoryDiagonal
+- [Hint 6](#hint1-5-6) explanation of checkDraw
+- [Solution](#solution1-5) 
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="hint1-5-1">Hint 1 for Challenge 1.5</a>
+
+There are several ways a Tic Tac Toe game may end:
+- A horizontal 3-in-a-row
+- A vertical 3-in-a-row
+- A diagonal 3-in-a-row
+- A draw, which occurs when there is not a 3-in-a-row and every cell is occupied
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="hint1-5-2">Hint 2 for Challenge 1.5</a>
+
+```js
+
+class TicTacToe {
+
+    ...
+
+    // Determines whether or the game has reached its conclusion.
+    // If the game is over, then sets this.gameOver to a GameOver object
+    // representing the conclusion of the game.
+    checkGameOver() {
+        this.checkVictoryHorizontal();
+        this.checkVictoryVertical();
+        this.checkVictoryDiagonal();
+        if (this.gameOver == undefined) {
+            this.checkDraw();
+        }
+    }
+ }
+```
+
+Now implement:
+
+- `checkVictoryHorizontal()`
+- `checkVictoryVertical()`
+- `checkVictoryDiagonal()`
+- `checkDraw()`
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="hint1-5-3">Hint 3 for Challenge 1.5</a>
+
+```js
+class TicTacToe {
+
+    ...
+
+    checkVictoryHorizontal() {
+        for (var row = 0; row < NUM_ROWS; row++) {
+            var a = this.matrix[row][0];
+            var b = this.matrix[row][1];
+            var c = this.matrix[row][2];
+
+            if (a == b && b == c && a != EMPTY) {
+                this.gameOver = new GameOver(a, [[row, 0], [row, 1], [row, 2]]);
+            }
+        }
+    }
+}
+```
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="hint1-5-4">Hint 4 for Challenge 1.5</a>
+
+```js
+class TicTacToe {
+
+    ...
+
+    checkVictoryVertical() {
+        for (var col = 0; col < NUM_COLS; col++) {
+            var a = this.matrix[0][col];
+            var b = this.matrix[1][col];
+            var c = this.matrix[2][col];
+
+            if (a == b && b == c && a != EMPTY) {
+                this.gameOver = new GameOver(a, [[0, col], [1, col], [2, col]]);
+            }
+        }
+    }
+}
+```
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="hint1-5-5">Hint 5 for Challenge 1.5</a>
+
+```js
+class TicTacToe {
+
+    ...
+
+    checkVictoryDiagonal() {
+        var a = this.matrix[0][0];
+        var b = this.matrix[1][1];
+        var c = this.matrix[2][2];
+        if (a == b && b == c && a != EMPTY) {
+            this.gameOver = new GameOver(a, [[0, 0], [1, 1], [2, 2]]);
+        }
+
+        var a = this.matrix[0][2];
+        var b = this.matrix[1][1];
+        var c = this.matrix[2][0];
+        if (a == b && b == c && a != EMPTY) {
+            this.gameOver = new GameOver(a, [[0, 2], [1, 1], [2, 0]]);
+        }
+    }
+}
+```
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="hint1-5-6">Hint 6 for Challenge 1.5</a>
+
+```js
+class TicTacToe {
+
+    ...
+
+    checkDraw() {
+        for (var row = 0; row < NUM_ROWS; row++) {
+            for (var col = 0; col < NUM_COLS; col++) {
+                if (this.matrix[row][col] == EMPTY) {
+                    return;
+                }
+            }
+        }
+
+        this.gameOver = new GameOver(undefined, undefined);
+    }
+}
+```
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="solution1-5">Solution for Challenge 1.5</a>
+
+The solution is simply the union of the hints:
+
+- [Hint 1](#hint1-5-1)
+- [Hint 2](#hint1-5-2)
+- [Hint 3](#hint1-5-3)
+- [Hint 4](#hint1-5-4)
+- [Hint 5](#hint1-5-5)
+- [Hint 6](#hint1-5-6)
