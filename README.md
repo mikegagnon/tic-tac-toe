@@ -325,3 +325,8 @@ assert(matricesEqual(game.matrix, expected_matrix));
 
 
 ## <a name="c1-3">Challenge 1.3 Pretty graphics</a>
+
+We will update the vizualization code to use pretty graphics.
+After this challenge, Tic Tac Toe will look something like this:
+
+<img src="pretty.png" width="100">
