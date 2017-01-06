@@ -39,9 +39,9 @@ class Node {
     getValue() {
         assert(this.ticTacToe.gameOver);
 
-        if (this.victor == undefined) {
+        if (this.ticTacToe.victor == undefined) {
             return 0;
-        } else if (this.victor == PLAYER_X) {
+        } else if (this.ticTacToe.victor == PLAYER_X) {
             return Number.MAX_SAFE_INTEGER;
         } else {
             return Number.MIN_SAFE_INTEGER;;
