@@ -9,7 +9,73 @@ PLAYER_O = 2;
 NUM_ROWS = 3;
 NUM_COLS = 3;
 
+class Move {
+    //      score == 1 iff player can win if it makes the move
+    //      score == 0 iff the player cannot win, but can tie
+    //      score == -1 iff the player can neither win nor tie
+    constructor(row, col, score) {
+        this.row = row;
+        this.col = col;
+        this.score = score;
+    }
+}
+
 class TicTacToe {
+
+    // finds the best move for the given game and player
+    //
+    // returns a Move object
+    static findBestMove(game, player) {
+
+
+
+        var moves = [];
+
+        for (var row = 0; row < NUM_ROWS; row++) {
+            for (var col = 0; col < NUM_COLS; col++) {
+                var newGame = game.clone();
+                var [valid_move, _] = newGame.click(row, col);
+
+                if (valid_move) {
+
+                    if (newGame.gameOver) {
+
+                        if (newGame.victor == player) {
+                            return new Move(row, col, 1);
+                        } else if (newGame.victor == undefined) {
+                            return new Move(row, col, 0);
+                        } else {
+                            return new Move(row, col, -1);
+                        }
+
+                    } else {
+                        var bestMove = TicTacToe.findBestMove(newGame, player);
+                        var move = new Move(row, col, bestMove.score);
+                        moves.push(move);
+                    }
+                }
+            }
+        }
+
+        var zeroScore = undefined;
+
+        for (var i = 0; i < moves.length; i++) {
+            var move = moves[i];
+
+            if (move.score == 1) {
+                return move;
+            } else if (move.score == 0) {
+                zeroScore = move;
+            }
+        }
+
+        if (zeroScore == undefined) {
+            return moves[0];
+        } else {
+            return zeroScore;
+        }
+
+    } 
 
     constructor() {
         this.matrix = [
@@ -129,45 +195,10 @@ class TicTacToe {
     }
 }
 
-class Node {
-
-    constructor(ticTacToe) {
-        this.ticTacToe = ticTacToe
-        this.children = [];
-    }
-
-    branch() {
-
-        if (this.ticTacToe.gameOver) {
-            return;
-        }
-
-        for (var row = 0; row < NUM_ROWS; row++) {
-            for (var col = 0; col < NUM_COLS; col++) {
-                var newGame = this.ticTacToe.clone();
-                var [valid_move, _] = newGame.click(row, col);
-
-                if (valid_move) {
-                    var newNode = new Node(newGame);
-                    this.children.push(newNode);
-                    newNode.branch();
-                }
-            }
-        }
-
-    }
-}
-
 
 var GAME = new TicTacToe();
 
-var node = new Node(GAME);
-node.branch();
-
-for (var i = 0; i < node.children; i++) {
-    console.log(node.children[i]);
-}
-
+TicTacToe.findBestMove(GAME, PLAYER_X);
 
 function getCellId(row, col) {
     return "cell-" + row + "-" + col;
