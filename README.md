@@ -482,7 +482,7 @@ Let's detect when a game has reached it's end.
 
 ### Introducing the `GameOver` class
 
-`GameOver` objects storee information about the end of the game.
+`GameOver` objects store information about the end of the game.
 Hopefully the comments below explain it well enough.
 
 ```js
