@@ -39,12 +39,12 @@ class GameOver {
     // depending upon who won the game.
     //
     // Either victoryCells == undefined (indicating a draw,), or
-    // this.victoryCells is an array of (row, col) pairs.
+    // dthis.victoryCells is an array of (row, col) pairs.
     // For example this.victoryCells might == [[0,0], [1,1], [2, 2]]
     // this.victoryCells denotes which (row, col) pairs constitute the
     // victories triple of cells that won the game.
     //
-    // For example, if this.matrix == [
+    // For example, if the game matrix == [
     //      [EMPTY,    EMPTY,    EMPTY],
     //      [EMPTY,    EMPTY,    EMPTY],
     //      [PLAYER_X, PLAYER_X, PLAYER_X],
