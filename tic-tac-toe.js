@@ -1,4 +1,8 @@
-
+function assert(condition) {
+    if (!condition) {
+        console.error("Assertion failed");
+    }
+}
 
 CELL_SIZE = 100;
 
@@ -20,53 +24,76 @@ class Move {
     }
 }
 
-class TicTacToe {
 
-    // finds the best move for the given game and player
-    //
-    // returns a Move object
-    static findBestMove(game, player) {
+class Node {
 
+    constructor(ticTacToe) {
+        this.ticTacToe = ticTacToe;
+    }
 
+    getGameOver() {
+        return this.ticTacToe.gameOver;
+    }
 
-        var moves = [];
+    getValue() {
+        assert(this.ticTacToe.gameOver);
+
+        if (this.victor == undefined) {
+            return 0;
+        } else if (this.victor == PLAYER_X) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
+    getChildren() {
+
+        var children = [];
 
         for (var row = 0; row < NUM_ROWS; row++) {
             for (var col = 0; col < NUM_COLS; col++) {
-                var newGame = game.clone();
-                var [valid_move, _] = newGame.click(row, col);
+                var newGame = this.ticTacToe.clone();
+                var [validMove, _] = newGame.click(row, col);
 
-                if (valid_move) {
-
-                    if (newGame.gameOver) {
-
-                        if (newGame.victor == player) {
-                            return new Move(row, col, 1);
-                        } else if (newGame.victor == undefined) {
-                            return new Move(row, col, 0);
-                        } else {
-                            return new Move(row, col, -1);
-                        }
-
-                    } else {
-                        var bestMove = TicTacToe.findBestMove(newGame, player);
-                        var move = new Move(row, col, bestMove.score);
-                        moves.push(move);
-                    }
+                if (validMove) {
+                    var child = new Node(newGame);
+                    children.push(child);
                 }
             }
         }
 
-        // From http://stackoverflow.com/questions/5503900/how-to-sort-an-array-of-objects-with-jquery-or-javascript
-        moves.sort(function(a,b) {
-            var aScore = a.score;
-            var bScore = b.score; 
-            return ((aScore < bScore) ? -1 : ((aScore > bScore) ? 1 : 0));
-        })
+        return children;
+    }
+}
 
-        return moves[moves.length - 1];
+function minMax(node, maximizingPlayer) {
+    if (node.getGameOver()) {
+        return node.getValue();
+    }
 
-    } 
+    if (maximizingPlayer) {
+        var bestValue = Number.MIN_SAFE_INTEGER;
+        var children = node.getChildren();
+        for (var i = 0; i < children.length; i++) {
+            var child = children[i];
+            var v = minMax(child, false);
+            bestValue = Math.max(bestValue, v);
+        }
+        return bestValue;
+    } else {
+        var bestValue = Number.MAX_SAFE_INTEGER;
+        var children = node.getChildren();
+        for (var i = 0; i < children.length; i++) {
+            var child = children[i];
+            var v = minMax(child, true);
+            bestValue = Math.min(bestValue, v);
+        }
+        return bestValue;       
+    }
+}
+
+class TicTacToe {
 
     constructor() {
         this.matrix = [
@@ -189,8 +216,6 @@ class TicTacToe {
 
 var GAME = new TicTacToe();
 
-TicTacToe.findBestMove(GAME, PLAYER_X);
-
 function getCellId(row, col) {
     return "cell-" + row + "-" + col;
 }
@@ -208,7 +233,7 @@ function getImgTag(player_turn) {
     return "<img src='" + filename + "' width=" + CELL_SIZE + ">";
 }
 
-function cellClick(row, col) {
+function cellClick(row, col, ai) {
 
     var [valid_move, player_turn] = GAME.click(row, col);
 
@@ -225,7 +250,11 @@ function cellClick(row, col) {
                 $("#" + getCellId(row, col)).css("background-color", "pink");
             }
 
-
         }
     }
+
+    /*if (!ai && !GAME.gameOver) {
+        var move = TicTacToe.findBestMove(GAME, PLAYER_O);
+        cellClick(move.row, move.col, true);
+    }*/
 }
