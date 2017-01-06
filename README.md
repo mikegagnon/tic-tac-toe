@@ -344,6 +344,8 @@ class TicTacToe {
             [EMPTY, EMPTY, EMPTY]
         ];
     
+        assert(player == PLAYER_X || player == PLAYER_O);
+    
         // this.player always equals the player (either PLAYER_X or PLAYER_O)
         // who has the next move.
         this.player = player;
