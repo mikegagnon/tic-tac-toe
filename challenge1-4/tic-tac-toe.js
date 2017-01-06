@@ -105,18 +105,6 @@ class TicTacToe {
             return;
         }
 
-        var cellId = Viz.getCellId(move.row, move.col)
-
-        var char;
-
-        if (move.player == PLAYER_X) {
-            char = "X";
-        } else if (move.player == PLAYER_O) {
-            char = "O";
-        } else {
-            assert(false);
-        }
-
         var cellId = Viz.getCellId(move.row, move.col);
         var imgTag = this.getImgTag(move.player);
         $("#" + cellId).append(imgTag);
