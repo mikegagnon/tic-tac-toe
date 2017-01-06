@@ -352,15 +352,18 @@ class TicTacToe {
 
 ### Update `makeMove(...)`
 
-- Update `makeMove(...)` so that this.player alternates between X's and O's
 - In the `makeMove(...)` function, check to see if the move is valid. If it's not, then return
   an appropriate `Move` object.
+- Update `makeMove(...)` so that this.player alternates between X's and O's
 - Fix tests that are broken (since the constructor for TicTacToe has changed, the old tests will fail)
 - Write new tests that verify/refute the correctness of your program
 
 ### Hints
 
-- [Hint 1](#hint1-3-1)
+- [Hint 1](#hint1-3-1) check valid move
+- [Hint 2](#hint1-3-2) alternation
+- [Hint 3](#hint1-3-3) fix broken tests
+- [Hint 4](#hint1-3-4) new tests
 
 
 
