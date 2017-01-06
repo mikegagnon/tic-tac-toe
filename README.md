@@ -578,7 +578,7 @@ We make three modifications to the `makeMove` method.
 3. We invoke `this.checkGameOver()`, which is the subject of the next section.
 
 ```js
-class TicTacTow {
+class TicTacToe {
 
     ...
 
