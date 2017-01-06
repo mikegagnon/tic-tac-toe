@@ -314,7 +314,11 @@ assert(matricesEqual(game.matrix, expected_matrix));
 ```
 
 
+### Result
 
+If you play the game in your browser, you should see something like this:
+
+<img src="all-x.png" width=315>
 
 
 
