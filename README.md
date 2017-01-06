@@ -442,6 +442,18 @@ class Viz {
 }
 ```
 
+### Update controller
+
+Now that `Viz` has a new constructor, we need to update our initialization of `VIZ` inside the controller.
+
+```js
+/*******************************************************************************
+ * Controller code
+ ******************************************************************************/
+var GAME = new TicTacToe(PLAYER_X);
+var VIZ = new Viz(100); // <-----------------------------------------------------------
+```
+
 ### The challenge
 The challenge is to update `drawMove(...)` so that it draws either `player-x.png` to the cell,
 or `player-o.png` to the cell, depending on `move.player`.
