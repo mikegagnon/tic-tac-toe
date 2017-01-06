@@ -26,10 +26,6 @@ class TicTacToe {
         assert(row >= 0 && row < NUM_ROWS);
         assert(col >= 0 && col < NUM_COLS);
 
-        if (this.matrix[row][col] != EMPTY) {
-            return;
-        }
-
         this.matrix[row][col] = PLAYER_X;
     }
 
