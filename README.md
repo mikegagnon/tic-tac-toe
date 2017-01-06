@@ -261,7 +261,7 @@ class TicTacToe {
 var GAME = new TicTacToe();
 var VIZ = new Viz();
 
-function cellClick(row, col, ai) {
+function cellClick(row, col) {
 
     var move = GAME.makeMove(row, col);
     VIZ.drawMove(move);
