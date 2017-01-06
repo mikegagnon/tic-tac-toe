@@ -331,7 +331,16 @@ After this challenge, Tic Tac Toe will look something like this:
 
 <img src="pretty.png" width="315px">
 
-First, update the `Viz` constructor so it takes a `cell_size` argument,
+### Download images
+
+Download these two images into your directory:
+
+<img src="player-x.png" width=100>
+<img src="player-o.png" width=100>
+
+
+### Update `Viz`
+Update the `Viz` constructor so it takes a `cell_size` argument,
 and sets `this.cell_size = cell_size`.
 
 ```js
@@ -345,5 +354,6 @@ class Viz {
 }
 ```
 
+### The challenge
 The challenge is to update `drawMove(...)` so that it draws either `player-x.png` to the cell,
 or `player-o.png` to the cell, depending on `move.player`.
