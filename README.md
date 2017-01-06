@@ -422,6 +422,8 @@ or `player-o.png` to the cell, depending on `move.player`.
 
 ## <a name="hint1-3-1">Hint 1 for Challenge 1.3</a>
 
+Check to see if the move is valid:
+
 ```js
 class TicTacToe {
 
@@ -441,15 +443,102 @@ class TicTacToe {
 
 ## <a name="hint1-3-2">Hint 2 for Challenge 1.3</a>
 
-alternation
+Alterante turns between X's and O's:
+
+```js
+class TicTacToe {
+
+    makeMove(row, col) {
+
+        assert(row >= 0 && row < NUM_ROWS);
+        assert(col >= 0 && col < NUM_COLS);
+
+        if (this.matrix[row][col] != EMPTY) {
+            return new Move(false, undefined, undefined, undefined);
+        } 
+
+        this.matrix[row][col] = this.player;
+
+        var move = new Move(true, row, col, this.player);
+
+        if (this.player == PLAYER_X) {
+            this.player = PLAYER_O;
+        } else {
+            this.player = PLAYER_X;
+        }
+
+        return move;
+    }
+}
+```
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 ## <a name="hint1-3-3">Hint 3 for Challenge 1.3</a>
 
-fix broken tests
+Fix broken tests:
+
+```js
+// Test player-x makeMove(0, 0)
+var game = new TicTacToe(PLAYER_X); // <-------------------------
+game.makeMove(0, 0);
+var expected_matrix = [
+    [PLAYER_X, EMPTY, EMPTY],
+    [EMPTY,    EMPTY, EMPTY],
+    [EMPTY,    EMPTY, EMPTY]
+]
+assert(matricesEqual(game.matrix, expected_matrix));
+
+// Test player-x makeMove(1, 1)
+var game = new TicTacToe(PLAYER_X); // <-------------------------
+game.makeMove(1, 1);
+var expected_matrix = [
+    [EMPTY,    EMPTY,    EMPTY],
+    [EMPTY,    PLAYER_X, EMPTY],
+    [EMPTY,    EMPTY,    EMPTY]
+]
+assert(matricesEqual(game.matrix, expected_matrix));
+```
+
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 ## <a name="hint1-3-4">Hint 4 for Challenge 1.3</a>
 
-new tests
+New tests:
+
+```js
+
+// Test opening player as PLAYER_O
+var game = new TicTacToe(PLAYER_O);
+game.makeMove(0, 0);
+var expected_matrix = [
+    [PLAYER_O, EMPTY,    EMPTY],
+    [EMPTY,    EMPTY,    EMPTY],
+    [EMPTY,    EMPTY,    EMPTY]
+]
+assert(matricesEqual(game.matrix, expected_matrix));
+
+// Test X then O then X
+var game = new TicTacToe(PLAYER_X);
+game.makeMove(1, 1);
+game.makeMove(0, 0);
+game.makeMove(2, 2);
+var expected_matrix = [
+    [PLAYER_O, EMPTY,    EMPTY],
+    [EMPTY,    PLAYER_X, EMPTY],
+    [EMPTY,    EMPTY,    PLAYER_X]
+]
+assert(matricesEqual(game.matrix, expected_matrix));
+
+// Test invalid move
+var game = new TicTacToe(PLAYER_X);
+game.makeMove(0, 0);
+var move = game.makeMove(0, 0);
+assert(!move.valid);
+var expected_matrix = [
+    [PLAYER_X, EMPTY, EMPTY],
+    [EMPTY,    EMPTY, EMPTY],
+    [EMPTY,    EMPTY, EMPTY]
+]
+assert(matricesEqual(game.matrix, expected_matrix));
+```
