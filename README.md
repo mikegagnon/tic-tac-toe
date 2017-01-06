@@ -15,7 +15,7 @@ And familiarity with OOP (object-orient programming) in JavaScript.
 
 ## Contents
 
-## Lecture 1. `TicTacToe` class
+## Lecture 1. Framework for `TicTacToe` class
 
 Initialize your Tic Tac Toe directory with the following two files:
 
@@ -107,6 +107,49 @@ var expected_matrix = [
     [EMPTY,    EMPTY,    EMPTY]
 ]
 assert(matricesEqual(game.matrix, expected_matrix));
+```
+
+## Lecture 1. Framework for controller and for `Viz` class
+
+Study this code until it makes 100% sense to you.
+
+### `index.html`
+
+Update your `index.html` file to do the following:
+
+- Import `style.css`
+- Import `jquery.js`
+- Create a 3&times;3 grid of cells
+
+```js
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="jquery.js"></script>
+  </head>
+  <body>
+    <div class="row">
+      <div class="cell" id="cell-0-0" onclick="cellClick(0, 0)"></div>
+      <div class="cell" id="cell-0-1" onclick="cellClick(0, 1)"></div>
+      <div class="cell" id="cell-0-2" onclick="cellClick(0, 2)"></div>
+    </div>
+    <div class="row">
+      <div class="cell" id="cell-1-0" onclick="cellClick(1, 0)"></div>
+      <div class="cell" id="cell-1-1" onclick="cellClick(1, 1)"></div>
+      <div class="cell" id="cell-1-2" onclick="cellClick(1, 2)"></div>
+    </div>
+    <div class="row">
+      <div class="cell" id="cell-2-0" onclick="cellClick(2, 0)"></div>
+      <div class="cell" id="cell-2-1" onclick="cellClick(2, 1)"></div>
+      <div class="cell" id="cell-2-2" onclick="cellClick(2, 2)"></div>
+    </div>
+  </body>
+
+  <script src="tic-tac-toe.js"></script>
+
+</html>
 ```
 
 
