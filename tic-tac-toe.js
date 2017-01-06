@@ -57,23 +57,14 @@ class TicTacToe {
             }
         }
 
-        var zeroScore = undefined;
+        // From http://stackoverflow.com/questions/5503900/how-to-sort-an-array-of-objects-with-jquery-or-javascript
+        moves.sort(function(a,b) {
+            var aScore = a.score;
+            var bScore = b.score; 
+            return ((aScore < bScore) ? -1 : ((aScore > bScore) ? 1 : 0));
+        })
 
-        for (var i = 0; i < moves.length; i++) {
-            var move = moves[i];
-
-            if (move.score == 1) {
-                return move;
-            } else if (move.score == 0) {
-                zeroScore = move;
-            }
-        }
-
-        if (zeroScore == undefined) {
-            return moves[0];
-        } else {
-            return zeroScore;
-        }
+        return moves[moves.length - 1];
 
     } 
 
