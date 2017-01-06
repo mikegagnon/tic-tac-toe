@@ -12,3 +12,40 @@ recursion (see [linked lists](https://github.com/mikegagnon/linked-lists/blob/ma
 [binary search trees](https://github.com/mikegagnon/bst/blob/master/README.md)), and
 [Sokoban+](https://github.com/mikegagnon/sokoban/blob/master/README.md).
 And familiarity with OOP (object-orient programming) in JavaScript.
+
+## Contents
+
+## Lecture 1. `TicTacToe` class
+
+Initialize your Tic Tac Toe directory with the following two files:
+
+### `tic-tac-toe.js`
+
+```js
+function assert(condition) {
+    if (!condition) {
+        console.error("Assertion failed");
+    }
+}
+
+class TicTacToe {
+
+    constructor() { }
+
+    play(row, col) { }
+}
+```
+
+### `index.html`
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tic Tac Toe</title>
+  </head>
+
+  <script src="tic-tac-toe.js"></script>
+
+</html>
+```
