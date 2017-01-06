@@ -27,6 +27,21 @@ class Move {
 }
 
 /*******************************************************************************
+ * GameOver
+ ******************************************************************************/
+// TODO: document
+class GameOver {
+    // Either this.victor == undefined (indicating a draw), or
+    // this.victor == PLAYER_X, or
+    // this.victor == PLAYER_O...
+    // depending upon who won the game.
+    constructor(victor, victoryCells) {
+        this.victor = victor;
+        this.victoryCells = victoryCells;
+    }
+}
+
+/*******************************************************************************
  * TicTacToe class
  ******************************************************************************/
 class TicTacToe {
@@ -45,6 +60,77 @@ class TicTacToe {
         // this.player always equals the player (either PLAYER_X or PLAYER_O)
         // who has the next move.
         this.player = player;
+
+        // TODO: is gameOver really needed?
+
+        // If the game is over, then this.gameOver equals a GameOver object
+        // that describes the properties of the conclusion of the game
+        // If the game is not over, then this.gameOver is undefined;
+        this.gameOver = undefined;
+
+    }
+
+    checkVictoryHorizontal() {
+        for (var row = 0; row < NUM_ROWS; row++) {
+            var a = this.matrix[row][0];
+            var b = this.matrix[row][1];
+            var c = this.matrix[row][2];
+
+            if (a == b && b == c && a != EMPTY) {
+                this.gameOver = new GameOver(a, [[row, 0], [row, 1], [row, 2]]);
+            }
+        }
+    }
+
+    checkVictoryVertical() {
+        for (var col = 0; col < NUM_COLS; col++) {
+            var a = this.matrix[0][col];
+            var b = this.matrix[1][col];
+            var c = this.matrix[2][col];
+
+            if (a == b && b == c && a != EMPTY) {
+                this.gameOver = new GameOver(a, [[0, col], [1, col], [2, col]]);
+            }
+        }
+    }
+
+    checkVictoryDiagonal() {
+        var a = this.matrix[0][0];
+        var b = this.matrix[1][1];
+        var c = this.matrix[2][2];
+        if (a == b && b == c && a != EMPTY) {
+            this.gameOver = new GameOver(a, [[0, 0], [1, 1], [2, 2]]);
+        }
+
+        var a = this.matrix[0][2];
+        var b = this.matrix[1][1];
+        var c = this.matrix[2][0];
+        if (a == b && b == c && a != EMPTY) {
+            this.gameOver = new GameOver(a, [[0, 2], [1, 1], [2, 0]]);
+        }
+    }
+
+    checkDraw() {
+        var containsEmptyCell = false;
+
+        for (var row = 0; row < NUM_ROWS; row++) {
+            for (var col = 0; col < NUM_COLS; col++) {
+                if (this.matrix[row][col] == EMPTY) {
+                    containsEmptyCell = true;
+                }
+            }
+        }
+
+        if (!containsEmptyCell) {
+            this.gameOver = new GameOver(undefined, undefined);
+        }
+    }
+
+    checkGameOver() {
+        this.checkVictoryHorizontal();
+        this.checkVictoryVertical();
+        this.checkVictoryDiagonal();
+        this.checkDraw();
     }
 
     makeMove(row, col) {
@@ -52,13 +138,14 @@ class TicTacToe {
         assert(row >= 0 && row < NUM_ROWS);
         assert(col >= 0 && col < NUM_COLS);
 
-        if (this.matrix[row][col] != EMPTY) {
+        if (this.matrix[row][col] != EMPTY || this.gameOver != undefined) {
             return new Move(false, undefined, undefined, undefined);
         } 
 
         this.matrix[row][col] = this.player;
 
         var move = new Move(true, row, col, this.player);
+        this.checkGameOver();
 
         if (this.player == PLAYER_X) {
             this.player = PLAYER_O;
