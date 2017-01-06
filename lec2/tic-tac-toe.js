@@ -15,7 +15,9 @@ PLAYER_O = 2;
  * Move is the interface between TicTacToe and Viz
  ******************************************************************************/
 class Move {
-    // TODO: Document
+    // valid == true iff the move results in change in game state
+    // (row, col) are the coordinates that player added their mark
+    // player is either PLAYER_X or PLAYER_O, depending on who made the move
     constructor(valid, row, col, player) {
         this.valid = valid;
         this.row = row;
