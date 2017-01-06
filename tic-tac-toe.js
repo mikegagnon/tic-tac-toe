@@ -279,8 +279,8 @@ function cellClick(row, col, ai) {
         }
     }
 
-    /*if (!ai && !GAME.gameOver) {
-        var move = TicTacToe.findBestMove(GAME, PLAYER_O);
+    if (!ai && !GAME.gameOver) {
+        var [move, _] = minMax(new Node(GAME), false);
         cellClick(move.row, move.col, true);
-    }*/
+    }
 }
