@@ -14,21 +14,22 @@ NUM_ROWS = 3;
 NUM_COLS = 3;
 
 class Move {
-    //      score == 1 iff player can win if it makes the move
-    //      score == 0 iff the player cannot win, but can tie
-    //      score == -1 iff the player can neither win nor tie
     constructor(row, col, score) {
         this.row = row;
         this.col = col;
-        this.score = score;
     }
 }
 
 
 class Node {
 
-    constructor(ticTacToe) {
+    constructor(ticTacToe, move = undefined) {
         this.ticTacToe = ticTacToe;
+        this.move = move;
+    }
+
+    getMove() {
+        return this.move;
     }
 
     getGameOver() {
@@ -57,7 +58,7 @@ class Node {
                 var [validMove, _] = newGame.click(row, col);
 
                 if (validMove) {
-                    var child = new Node(newGame);
+                    var child = new Node(newGame, new Move(row, col));
                     children.push(child);
                 }
             }
@@ -86,27 +87,35 @@ class Node {
 // maximizingPlayer is true if it is the maximizing players turn.
 function minMax(node, maximizingPlayer) {
     if (node.getGameOver()) {
-        return node.getValue();
+        return [node.getMove(), node.getValue()];
     }
 
     if (maximizingPlayer) {
         var bestValue = Number.MIN_SAFE_INTEGER;
         var children = node.getChildren();
+        var bestChild = children[0];
         for (var i = 0; i < children.length; i++) {
             var child = children[i];
-            var v = minMax(child, false);
+            var [_, v] = minMax(child, false);
             bestValue = Math.max(bestValue, v);
+            if (bestValue == v) {
+                bestChild = child;
+            }
         }
-        return bestValue;
+        return [bestChild.getMove(), bestValue];
     } else {
         var bestValue = Number.MAX_SAFE_INTEGER;
         var children = node.getChildren();
+        var bestChild = children[0];
         for (var i = 0; i < children.length; i++) {
             var child = children[i];
-            var v = minMax(child, true);
+            var [_, v] = minMax(child, true);
             bestValue = Math.min(bestValue, v);
+            if (bestValue == v) {
+                bestChild = child;
+            }
         }
-        return bestValue;       
+        return [bestChild.getMove(), bestValue];
     }
 }
 
