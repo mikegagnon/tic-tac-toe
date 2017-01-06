@@ -18,11 +18,14 @@ class Move {
     // valid == true iff the move results in change in game state
     // (row, col) are the coordinates that player added their mark
     // player is either PLAYER_X or PLAYER_O, depending on who made the move
-    constructor(valid, row, col, player) {
+    // gameOver is either undefined (which signifies the game has not concluded)
+    // or gameOver is a GameOver object, representing the conclusion of the game
+    constructor(valid, row, col, player, gameOver) {
         this.valid = valid;
         this.row = row;
         this.col = col;
         this.player = player;
+        this.gameOver = gameOver;
     }
 }
 
@@ -60,8 +63,6 @@ class TicTacToe {
         // this.player always equals the player (either PLAYER_X or PLAYER_O)
         // who has the next move.
         this.player = player;
-
-        // TODO: is gameOver really needed?
 
         // If the game is over, then this.gameOver equals a GameOver object
         // that describes the properties of the conclusion of the game
@@ -146,7 +147,7 @@ class TicTacToe {
 
         this.matrix[row][col] = this.player;
 
-        var move = new Move(true, row, col, this.player);
+        var move = new Move(true, row, col, this.player, this.gameOver);
         this.checkGameOver();
 
         if (this.player == PLAYER_X) {
