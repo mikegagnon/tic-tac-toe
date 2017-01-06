@@ -350,6 +350,33 @@ class TicTacToe {
     }
 ```
 
+### Update `GAME` initialization
+
+Recall, the controller code from [Lecture 1.2](#lec1-2), looks as follows:
+
+```js
+/*******************************************************************************
+ * Controller code
+ ******************************************************************************/
+var GAME = new TicTacToe();
+var VIZ = new Viz();
+
+...
+```
+
+Since the `TicTacToe` constructor has changed, we must update the `GAME` initialization:
+
+```js
+/*******************************************************************************
+ * Controller code
+ ******************************************************************************/
+var GAME = new TicTacToe(PLAYER_X); // <------------------------------------------------
+var VIZ = new Viz();
+
+...
+```
+
+
 ### Update `makeMove(...)`
 
 - In the `makeMove(...)` function, check to see if the move is valid. If it's not, then return
