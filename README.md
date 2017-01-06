@@ -19,22 +19,6 @@ And familiarity with OOP (object-orient programming) in JavaScript.
 
 Initialize your Tic Tac Toe directory with the following two files:
 
-### `tic-tac-toe.js`
-
-```js
-function assert(condition) {
-    if (!condition) {
-        console.error("Assertion failed");
-    }
-}
-
-class TicTacToe {
-
-    constructor() { }
-
-}
-```
-
 ### `index.html`
 
 ```html
@@ -47,4 +31,56 @@ class TicTacToe {
   <script src="tic-tac-toe.js"></script>
 
 </html>
+```
+
+### `tic-tac-toe.js`
+
+```js
+function assert(condition) {
+    if (!condition) {
+        console.error("Assertion failed");
+    }
+}
+
+NUM_ROWS = 3;
+NUM_COLS = 3;
+
+EMPTY = 0;
+PLAYER_X = 1;
+PLAYER_O = 2;
+
+class TicTacToe {
+
+    constructor() {
+        this.matrix = [
+            [EMPTY, EMPTY,EMPTY],
+            [EMPTY, EMPTY,EMPTY],
+            [EMPTY, EMPTY,EMPTY]
+        ];
+
+        this.player_turn = PLAYER_X;
+    }
+
+    makeMove(row, col) {
+
+        assert(row >= 0 && row < NUM_ROWS);
+        assert(col >= 0 && col < NUM_COLS);
+
+        if (this.matrix[row][col] != EMPTY) {
+            return;
+        }
+
+        this.matrix[row][col] = this.player_turn;
+
+        if (this.player_turn == PLAYER_X) {
+            this.player_turn = PLAYER_O;
+        } else if (this.player_turn == PLAYER_O) {
+            this.player_turn = PLAYER_X;
+        } else {
+            assert(false);
+        }
+
+    }
+
+}
 ```
