@@ -19,8 +19,6 @@ class TicTacToe {
             [EMPTY, EMPTY,EMPTY],
             [EMPTY, EMPTY,EMPTY]
         ];
-
-        this.player_turn = PLAYER_X;
     }
 
     makeMove(row, col) {
@@ -32,16 +30,7 @@ class TicTacToe {
             return;
         }
 
-        this.matrix[row][col] = this.player_turn;
-
-        if (this.player_turn == PLAYER_X) {
-            this.player_turn = PLAYER_O;
-        } else if (this.player_turn == PLAYER_O) {
-            this.player_turn = PLAYER_X;
-        } else {
-            assert(false);
-        }
-
+        this.matrix[row][col] = PLAYER_X;
     }
 
 }
@@ -63,7 +52,7 @@ function matricesEqual(matrix1, matrix2) {
     return true;
 }
 
-// Test player 1 makeMove(0, 0)
+// Test player-x makeMove(0, 0)
 var game = new TicTacToe();
 game.makeMove(0, 0);
 var expected_matrix = [
@@ -73,41 +62,13 @@ var expected_matrix = [
 ]
 assert(matricesEqual(game.matrix, expected_matrix));
 
-// Test: player-x makeMove(0, 0), then player-o makeMove(1, 1)
-//  
+// Test player-x makeMove(1, 1)
 var game = new TicTacToe();
-game.makeMove(0, 0);
+game.makeMove(1, 1);
 var expected_matrix = [
-    [PLAYER_X, EMPTY, EMPTY],
-    [EMPTY,    EMPTY, EMPTY],
-    [EMPTY,    EMPTY, EMPTY]
-]
-assert(matricesEqual(game.matrix, expected_matrix));
-
-game.makeMove(1, 1)
-var expected_matrix = [
-    [PLAYER_X, EMPTY,    EMPTY],
-    [EMPTY,    PLAYER_O, EMPTY],
+    [EMPTY,    EMPTY,    EMPTY],
+    [EMPTY,    PLAYER_X, EMPTY],
     [EMPTY,    EMPTY,    EMPTY]
 ]
 assert(matricesEqual(game.matrix, expected_matrix));
 
-// Test: player-x makeMove(0, 0), then player-o makeMove(0, 0), which is an
-// occupied cell
-var game = new TicTacToe();
-game.makeMove(0, 0);
-var expected_matrix = [
-    [PLAYER_X, EMPTY, EMPTY],
-    [EMPTY,    EMPTY, EMPTY],
-    [EMPTY,    EMPTY, EMPTY]
-]
-assert(matricesEqual(game.matrix, expected_matrix));
-
-game.makeMove(0, 0)
-var expected_matrix = [
-    [PLAYER_X, EMPTY,    EMPTY],
-    [EMPTY,    EMPTY, EMPTY],
-    [EMPTY,    EMPTY,    EMPTY]
-]
-assert(matricesEqual(game.matrix, expected_matrix));
-assert(game.player_turn = PLAYER_O);
