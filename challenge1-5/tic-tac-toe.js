@@ -125,21 +125,21 @@ class TicTacToe {
     }
 
     checkDraw() {
-        var containsEmptyCell = false;
-
         for (var row = 0; row < NUM_ROWS; row++) {
             for (var col = 0; col < NUM_COLS; col++) {
                 if (this.matrix[row][col] == EMPTY) {
-                    containsEmptyCell = true;
+                    return;
                 }
             }
         }
 
-        if (!containsEmptyCell) {
-            this.gameOver = new GameOver(undefined, undefined);
-        }
+        this.gameOver = new GameOver(undefined, undefined);
     }
 
+
+    // Determines whether or the game has reached its conclusion.
+    // If the game is over, then sets this.gameOver to a GameOver object
+    // representing the conclusion of the game.
     checkGameOver() {
         this.checkVictoryHorizontal();
         this.checkVictoryVertical();
