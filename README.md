@@ -344,3 +344,6 @@ class Viz {
     }
 }
 ```
+
+The challenge is to update `drawMove(...)` so that it draws either `player-x.png` to the cell,
+or `player-o.png` to the cell, depending on `move.player`.
