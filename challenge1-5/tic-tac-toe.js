@@ -32,12 +32,25 @@ class Move {
 /*******************************************************************************
  * GameOver
  ******************************************************************************/
-// TODO: document
 class GameOver {
     // Either this.victor == undefined (indicating a draw), or
     // this.victor == PLAYER_X, or
     // this.victor == PLAYER_O...
     // depending upon who won the game.
+    //
+    // Either victoryCells == undefined (indicating a draw,), or
+    // this.victoryCells is an array of (row, col) pairs.
+    // For example this.victoryCells might == [[0,0], [1,1], [2, 2]]
+    // this.victoryCells denotes which (row, col) pairs constitute the
+    // victories triple of cells that won the game.
+    //
+    // For example, if this.matrix == [
+    //      [EMPTY,    EMPTY,    EMPTY],
+    //      [EMPTY,    EMPTY,    EMPTY],
+    //      [PLAYER_X, PLAYER_X, PLAYER_X],
+    // ]
+    // 
+    // then, this.victoryCells would be [[2,0], [2,1], [2,2]]
     constructor(victor, victoryCells) {
         this.victor = victor;
         this.victoryCells = victoryCells;
