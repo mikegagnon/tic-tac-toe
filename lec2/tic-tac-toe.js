@@ -63,10 +63,12 @@ class TicTacToe {
     constructor() { }
 
     drawMove(move) {
-        if (move.valid) {
-            var cellId = Viz.getCellId(move.row, move.col)
-            $("#" + cellId).text("X") ;
+        if (!move.valid) {
+            return;
         }
+
+        var cellId = Viz.getCellId(move.row, move.col)
+        $("#" + cellId).text("X") ;
     }
  }
 
