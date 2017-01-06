@@ -422,8 +422,21 @@ or `player-o.png` to the cell, depending on `move.player`.
 
 ## <a name="hint1-3-1">Hint 1 for Challenge 1.3</a>
 
-check valid move
+```js
+class TicTacToe {
 
+    makeMove(row, col) {
+
+        assert(row >= 0 && row < NUM_ROWS);
+        assert(col >= 0 && col < NUM_COLS);
+
+        if (this.matrix[row][col] != EMPTY) {
+            return new Move(false, undefined, undefined, undefined);
+        } 
+        ...
+    }
+}
+```
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 ## <a name="hint1-3-2">Hint 2 for Challenge 1.3</a>
