@@ -15,10 +15,12 @@ And familiarity with OOP (object-orient programming) in JavaScript.
 
 ## Contents
 
-- [Lecture 1. Framework for `TicTacToe` class](#lec1)
-- [Lecture 2. Framework for controller and for `Viz` class](#lec2)
+- [Part 1. Two-player Tic Tac Toe]
+  - [Lecture 1.1 Framework for `TicTacToe` class](#lec1-1)
+  - [Lecture 1.2 Framework for controller and for `Viz` class](#lec1-2)
+  - [Challenge 1.3 Pretty graphics](#c1-3)
 
-## <a name="lec1">Lecture 1. Framework for `TicTacToe` class</a>
+## <a name="lec1-1">Lecture 1.1 Framework for `TicTacToe` class</a>
 
 Initialize your Tic Tac Toe directory with the following two files:
 
@@ -121,7 +123,7 @@ assert(matricesEqual(game.matrix, expected_matrix));
 
 
 
-## <a name="lec2">Lecture 2. Framework for controller and for `Viz` class</a>
+## <a name="lec1-2">Lecture 1.2 Framework for controller and for `Viz` class</a>
 
 Study this code until it makes 100% sense to you.
 
@@ -202,7 +204,9 @@ PLAYER_O = 2;
  * Move is the interface between TicTacToe and Viz
  ******************************************************************************/
 class Move {
-    // TODO: Document
+    // valid == true iff the move results in change in game state
+    // (row, col) are the coordinates that player added their mark
+    // player is either PLAYER_X or PLAYER_O, depending on who made the move
     constructor(valid, row, col, player) {
         this.valid = valid;
         this.row = row;
@@ -248,10 +252,12 @@ class TicTacToe {
     constructor() { }
 
     drawMove(move) {
-        if (move.valid) {
-            var cellId = Viz.getCellId(move.row, move.col)
-            $("#" + cellId).text("X") ;
+        if (!move.valid) {
+            return;
         }
+
+        var cellId = Viz.getCellId(move.row, move.col)
+        $("#" + cellId).text("X") ;
     }
  }
 
@@ -261,7 +267,7 @@ class TicTacToe {
 var GAME = new TicTacToe();
 var VIZ = new Viz();
 
-function cellClick(row, col, ai) {
+function cellClick(row, col) {
 
     var move = GAME.makeMove(row, col);
     VIZ.drawMove(move);
@@ -306,3 +312,16 @@ var expected_matrix = [
 assert(matricesEqual(game.matrix, expected_matrix));
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+
+## <a name="c1-3">Challenge 1.3 Pretty graphics</a>
