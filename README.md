@@ -55,7 +55,7 @@ NUM_COLS = 3;
 
 EMPTY = 0;
 PLAYER_X = 1;
-PLAYER_O = 2;
+PLAYER_O = 2;s
 
 class TicTacToe {
 
@@ -402,7 +402,7 @@ If you play the game in your browser, you should see something like this:
 - [Hint 2](#hint1-3-2)
 - [Hint 3](#hint1-3-3)
 - [Hint 4](#hint1-3-4)
-
+- [Solution](#solution1-3)
 
 
 
@@ -580,3 +580,14 @@ var expected_matrix = [
 ]
 assert(matricesEqual(game.matrix, expected_matrix));
 ```
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="solution1-3">Solution for Challenge 1.3</a>
+
+The solution is simply the union of all the hints:
+
+- [Hint 1](#hint1-3-1)
+- [Hint 2](#hint1-3-2)
+- [Hint 3](#hint1-3-3)
+- [Hint 4](#hint1-3-4)
