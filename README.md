@@ -568,13 +568,14 @@ class TicTacToe {
 
 ### Update `makeMove` method
 
-We make two modifications to the `makeMove` method.
+We make three modifications to the `makeMove` method.
 
 1. We check to see if the game is over at the beginning of the method.
    This way we can exit the method right away if the game is already over.
 2. We modify the instantiation of the `move` object by adding
    this.gameOver to the argument list (since the `Move` constructor
    now takes a gameOver argument).
+3. We invoke `this.checkGameOver()`, which is the subject of the next section.
 
 ```js
 class TicTacTow {
@@ -593,7 +594,7 @@ class TicTacTow {
         this.matrix[row][col] = this.player;
 
         var move = new Move(true, row, col, this.player, this.gameOver); // <-----------------------------
-        this.checkGameOver();
+        this.checkGameOver(); // <------------------------------------------------------------------------
 
         if (this.player == PLAYER_X) {
             this.player = PLAYER_O;
@@ -606,6 +607,32 @@ class TicTacTow {
 }
 ```
 
+### Challenge: implement `checkGameOver()`
+
+```js
+class  TicTacToe {
+
+    ...
+
+    // Determines whether or the game has reached its conclusion.
+    // If the game is over, then sets this.gameOver to a GameOver object
+    // representing the conclusion of the game.
+    checkGameOver() {
+        // ?
+    }
+}
+```
+
+### Hints
+
+- [Hint 1](#hint1-5-1) Categories for game over
+- [Hint 2](#hint1-5-2) shell implementation
+- [Hint 3](#hint1-5-3) implementation of checkVictoryHorizontal
+- [Hint 4](#hint1-5-4) implementation of checkVictoryVertical
+- [Hint 5](#hint1-5-5) implementation of checkVictoryDiagonal
+- [Hint 6](#hint1-5-6) explanation of checkDraw
+- [Hint 7](#hint1-5-7) implementation of checkDraw
+- [Solution](#solution1-5) 
 
 
 
