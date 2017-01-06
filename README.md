@@ -20,6 +20,7 @@ And familiarity with OOP (object-orient programming) in JavaScript.
   - [Lecture 1.2 Framework for controller and for `Viz` class](#lec1-2)
   - [Challenge 1.3 X's and O's](#c1-3)
   - [Challenge 1.4 Pretty graphics](#c1-4)
+  - [Challenge 1.5 Game Over](#c1-5)
 
 ## <a name="lec1-1">Lecture 1.1 Framework for `TicTacToe` class</a>
 
@@ -465,6 +466,149 @@ or `player-o.png` to the cell, depending on `move.player`.
 ### Hints
 
 - [Solution](#solution1-4)
+
+
+
+
+
+
+
+
+
+
+## <a name="c1-5">Challenge 1.5 Game Over</a>
+
+Let's detect when a game has reached it's end.
+
+### Introducing the `GameOver` class
+
+This class `GameOver` stores information about the end of the game.
+Hopefully the comments explain it well enough.
+
+```js
+class GameOver {
+    // Either this.victor == undefined (indicating a draw), or
+    // this.victor == PLAYER_X, or
+    // this.victor == PLAYER_O...
+    // depending upon who won the game.
+    //
+    // Either victoryCells == undefined (indicating a draw,), or
+    // dthis.victoryCells is an array of (row, col) pairs.
+    // For example this.victoryCells might == [[0,0], [1,1], [2, 2]]
+    // this.victoryCells denotes which (row, col) pairs constitute the
+    // victories triple of cells that won the game.
+    //
+    // For example, if this.matrix == [
+    //      [EMPTY,    EMPTY,    EMPTY],
+    //      [EMPTY,    EMPTY,    EMPTY],
+    //      [PLAYER_X, PLAYER_X, PLAYER_X],
+    // ]
+    // 
+    // then, this.victoryCells would be [[2,0], [2,1], [2,2]]
+    constructor(victor, victoryCells) {
+        this.victor = victor;
+        this.victoryCells = victoryCells;
+    }
+}
+```
+
+### Update the `Move` class
+
+We add a `gameOver` reference to the `Move` class, which
+will help the `Viz` class highlight the victorious cells
+after a victory.
+
+```js
+class Move {
+    // valid == true iff the move results in change in game state
+    // (row, col) are the coordinates that player added their mark
+    // player is either PLAYER_X or PLAYER_O, depending on who made the move
+    // gameOver is either undefined (which signifies the game has not concluded)
+    // or gameOver is a GameOver object, representing the conclusion of the game
+    constructor(valid, row, col, player, gameOver) { // <------------------------------
+        this.valid = valid;
+        this.row = row;
+        this.col = col;
+        this.player = player;
+        this.gameOver = gameOver; // <-------------------------------------------------
+    }
+}
+```
+
+### Update the `TicTacToe` constructor
+
+```js
+class TicTacToe {
+
+    ...
+
+    // player is either PLAYER_X or PLAYER_O, and indicates which player has
+    // the opening move
+    constructor(player) {
+        this.matrix = [
+            [EMPTY, EMPTY, EMPTY],
+            [EMPTY, EMPTY, EMPTY],
+            [EMPTY, EMPTY, EMPTY]
+        ];
+
+        assert(player == PLAYER_X || player == PLAYER_O);
+
+        // this.player always equals the player (either PLAYER_X or PLAYER_O)
+        // who has the next move.
+        this.player = player;
+
+        // If the game is over, then this.gameOver equals a GameOver object
+        // that describes the properties of the conclusion of the game
+        // If the game is not over, then this.gameOver is undefined;
+        this.gameOver = undefined; // <------------------------------------------------
+
+    }
+}
+```
+
+### Update `makeMove` method
+
+We make two modifications to the `makeMove` method.
+
+1. We check to see if the game is over at the beginning of the method.
+   This way we can exit the method right away if the game is already over.
+2. We modify the instantiation of the `move` object by adding
+   this.gameOver to the argument list (since the `Move` constructor
+   now takes a gameOver argument).
+
+```js
+class TicTacTow {
+
+    ...
+
+    makeMove(row, col) {
+
+        assert(row >= 0 && row < NUM_ROWS);
+        assert(col >= 0 && col < NUM_COLS);
+
+        if (this.matrix[row][col] != EMPTY || this.gameOver != undefined) { // <--------------------------
+            return new Move(false, undefined, undefined, undefined);
+        } 
+
+        this.matrix[row][col] = this.player;
+
+        var move = new Move(true, row, col, this.player, this.gameOver); // <-----------------------------
+        this.checkGameOver();
+
+        if (this.player == PLAYER_X) {
+            this.player = PLAYER_O;
+        } else {
+            this.player = PLAYER_X;
+        }
+
+        return move;
+    }
+}
+```
+
+
+
+
 
 
 
