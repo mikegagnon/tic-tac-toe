@@ -313,7 +313,6 @@ var expected_matrix = [
 assert(matricesEqual(game.matrix, expected_matrix));
 ```
 
-
 ### Result
 
 If you play the game in your browser, you should see something like this:
@@ -390,6 +389,12 @@ var VIZ = new Viz();
 - Update `makeMove(...)` so that this.player alternates between X's and O's
 - Fix tests that are broken (since the constructor for TicTacToe has changed, the old tests will fail)
 - Write new tests that verify/refute the correctness of your program
+
+### Result
+
+If you play the game in your browser, you should see something like this:
+
+<img src="ascii-graphics.png" width=315>
 
 ### Hints
 
