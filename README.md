@@ -429,7 +429,8 @@ Download these two images into your directory:
 
 ### Update `Viz`
 Update the `Viz` constructor so it takes a `cell_size` argument,
-and sets `this.cell_size = cell_size`.
+and sets `this.cell_size = cell_size`, and sets the cell `<div>`
+elements to the proper size.
 
 ```js
 class Viz {
@@ -438,15 +439,32 @@ class Viz {
     
     constructor(cell_size) {
         this.cell_size = cell_size;
+        
+        $(".cell").css("height", this.cell_size);
+        $(".cell").css("width", this.cell_size);
     }
 }
+```
+
+### Update controller
+
+Now that `Viz` has a new constructor, we need to update our initialization of `VIZ` inside the controller.
+
+```js
+/*******************************************************************************
+ * Controller code
+ ******************************************************************************/
+var GAME = new TicTacToe(PLAYER_X);
+var VIZ = new Viz(100); // <-----------------------------------------------------------
 ```
 
 ### The challenge
 The challenge is to update `drawMove(...)` so that it draws either `player-x.png` to the cell,
 or `player-o.png` to the cell, depending on `move.player`.
 
+### Hints
 
+- [Solution](#solution1-4)
 
 
 
@@ -591,3 +609,46 @@ The solution is simply the union of all the hints:
 - [Hint 2](#hint1-3-2)
 - [Hint 3](#hint1-3-3)
 - [Hint 4](#hint1-3-4)
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="solution1-4">Solution for Challenge 1.4</a>
+
+```js
+ class Viz {
+    
+    static getCellId(row, col) {
+        return "cell-" + row + "-" + col;
+    }
+
+    getImgTag(player) {
+        var filename;
+        if (player == PLAYER_X) {
+            filename = "player-x.png";
+        } else if (player == PLAYER_O) {
+            filename = "player-o.png";
+        } else {
+            assert(false);
+        }
+
+        return "<img src='" + filename + "' width=" + this.cell_size + " >";
+    }
+
+    constructor(cell_size) {
+        this.cell_size = cell_size;
+
+        $(".cell").css("height", this.cell_size);
+        $(".cell").css("width", this.cell_size);
+    }
+
+    drawMove(move) {
+        if (!move.valid) {
+            return;
+        }
+
+        var cellId = Viz.getCellId(move.row, move.col);
+        var imgTag = this.getImgTag(move.player);
+        $("#" + cellId).append(imgTag);
+    }
+ }
+```
