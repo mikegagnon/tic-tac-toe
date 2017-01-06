@@ -31,13 +31,18 @@ class Move {
  ******************************************************************************/
 class TicTacToe {
 
-    constructor() {
+    // player is either PLAYER_X or PLAYER_O, and indicates which player has
+    // the opening move
+    constructor(player) {
         this.matrix = [
             [EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY]
         ];
-        this.player = PLAYER_X;
+
+        // this.player always equals the player (either PLAYER_X or PLAYER_O)
+        // who has the next move.
+        this.player = player;
     }
 
     makeMove(row, col) {
@@ -127,7 +132,7 @@ function matricesEqual(matrix1, matrix2) {
 }
 
 // Test player-x makeMove(0, 0)
-var game = new TicTacToe();
+var game = new TicTacToe(PLAYER_X);
 game.makeMove(0, 0);
 var expected_matrix = [
     [PLAYER_X, EMPTY, EMPTY],
@@ -137,7 +142,7 @@ var expected_matrix = [
 assert(matricesEqual(game.matrix, expected_matrix));
 
 // Test player-x makeMove(1, 1)
-var game = new TicTacToe();
+var game = new TicTacToe(PLAYER_X);
 game.makeMove(1, 1);
 var expected_matrix = [
     [EMPTY,    EMPTY,    EMPTY],
@@ -146,3 +151,36 @@ var expected_matrix = [
 ]
 assert(matricesEqual(game.matrix, expected_matrix));
 
+// Test opening player as PLAYER_O
+var game = new TicTacToe(PLAYER_O);
+game.makeMove(0, 0);
+var expected_matrix = [
+    [PLAYER_O, EMPTY,    EMPTY],
+    [EMPTY,    EMPTY,    EMPTY],
+    [EMPTY,    EMPTY,    EMPTY]
+]
+assert(matricesEqual(game.matrix, expected_matrix));
+
+// Test X then O then X
+var game = new TicTacToe(PLAYER_X);
+game.makeMove(1, 1);
+game.makeMove(0, 0);
+game.makeMove(2, 2);
+var expected_matrix = [
+    [PLAYER_O, EMPTY,    EMPTY],
+    [EMPTY,    PLAYER_X, EMPTY],
+    [EMPTY,    EMPTY,    PLAYER_X]
+]
+assert(matricesEqual(game.matrix, expected_matrix));
+
+// Test invalid move
+var game = new TicTacToe(PLAYER_X);
+game.makeMove(0, 0);
+var move = game.makeMove(0, 0);
+assert(!move.valid);
+var expected_matrix = [
+    [PLAYER_X, EMPTY, EMPTY],
+    [EMPTY,    EMPTY, EMPTY],
+    [EMPTY,    EMPTY, EMPTY]
+]
+assert(matricesEqual(game.matrix, expected_matrix));
