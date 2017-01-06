@@ -38,7 +38,7 @@ class GameOver {
     // this.victor == PLAYER_O...
     // depending upon who won the game.
     //
-    // Either victoryCells == undefined (indicating a draw,), or
+    // Either victoryCells == undefined (indicating a draw), or
     // dthis.victoryCells is an array of (row, col) pairs.
     // For example this.victoryCells might == [[0,0], [1,1], [2, 2]]
     // this.victoryCells denotes which (row, col) pairs constitute the
