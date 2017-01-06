@@ -35,6 +35,8 @@ Initialize your Tic Tac Toe directory with the following two files:
 
 ### `tic-tac-toe.js`
 
+Study this code (including tests) until it makes 100% sense to you.
+
 ```js
 function assert(condition) {
     if (!condition) {
@@ -149,5 +151,6 @@ var expected_matrix = [
 ]
 assert(matricesEqual(game.matrix, expected_matrix));
 assert(game.player_turn = PLAYER_O);
-
 ```
+
+
