@@ -360,10 +360,10 @@ class TicTacToe {
 
 ### Hints
 
-- [Hint 1](#hint1-3-1) check valid move
-- [Hint 2](#hint1-3-2) alternation
-- [Hint 3](#hint1-3-3) fix broken tests
-- [Hint 4](#hint1-3-4) new tests
+- [Hint 1](#hint1-3-1)
+- [Hint 2](#hint1-3-2)
+- [Hint 3](#hint1-3-3)
+- [Hint 4](#hint1-3-4)
 
 
 
@@ -407,3 +407,36 @@ class Viz {
 ### The challenge
 The challenge is to update `drawMove(...)` so that it draws either `player-x.png` to the cell,
 or `player-o.png` to the cell, depending on `move.player`.
+
+
+
+
+
+
+
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="hint1-3-1">Hint 1 for Challenge 1.3</a>
+
+check valid move
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="hint1-3-2">Hint 2 for Challenge 1.3</a>
+
+alternation
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="hint1-3-3">Hint 3 for Challenge 1.3</a>
+
+fix broken tests
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="hint1-3-4">Hint 4 for Challenge 1.3</a>
+
+new tests
