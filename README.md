@@ -579,14 +579,14 @@ class TicTacToe {
 }
 ```
 
-### Update `makeMove` method
+### Update `makeMove(...)` method
 
-We make three modifications to the `makeMove` method.
+We make three modifications to the `makeMove(...)` method.
 
 1. We check to see if the game is over at the beginning of the method.
    This way we can exit the method right away if the game is already over.
 2. We modify the instantiation of the `move` object by adding
-   this.gameOver to the argument list (since the `Move` constructor
+   `this.gameOver` to the argument list (since the `Move` constructor
    now takes a gameOver argument).
 3. We invoke `this.checkGameOver()`, which is the subject of the next section.
 
