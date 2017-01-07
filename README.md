@@ -955,6 +955,93 @@ function minMax(node, maximizingPlayer) {
 }
 ```
 
+#### Testing MinMax
+
+To test our `minMax` function we encode the game tree from Example 4 into a tree of `DummyNode` objects.
+Here is the class definition for `DummyNode`:
+
+```js
+class DummyNode {
+
+    constructor(children, score = undefined) {
+        this.children = children;
+        this.score = score;
+    }
+
+    isLeaf() {
+        return this.children.length == 0;
+    }
+
+    getScore() {
+        assert(this.isLeaf());
+        return this.score;
+    }
+
+    getChildren() {
+        return this.children;
+    }
+}
+```
+
+Then, we manually build our game tree:
+
+```js
+// Red layer
+var redLeaf = new DummyNode([], 1);
+var blueLeaf = new DummyNode([], -1);
+var drawLeaf = new DummyNode([], 0);
+
+// Blue layer
+var nodeA = new DummyNode([redLeaf, drawLeaf]);
+var nodeB = new DummyNode([blueLeaf, drawLeaf]);
+var nodeC = new DummyNode([blueLeaf, redLeaf]);
+var nodeD = new DummyNode([blueLeaf, drawLeaf]);
+var nodeE = new DummyNode([redLeaf, drawLeaf]);
+var nodeF = new DummyNode([blueLeaf, drawLeaf]);
+var nodeG = new DummyNode([redLeaf, redLeaf]);
+var nodeH = new DummyNode([redLeaf, redLeaf]);
+
+// Red layer
+var nodeI = new DummyNode([nodeA, nodeB]);
+var nodeJ = new DummyNode([nodeC, nodeD]);
+var nodeK = new DummyNode([nodeE, nodeF]);
+var nodeL = new DummyNode([nodeG, nodeH]);
+
+// Blue layer
+var nodeM = new DummyNode([nodeI, nodeJ]);
+var nodeN = new DummyNode([nodeK, nodeL]);
+
+// Red layer
+var nodeRoot = new DummyNode([nodeM, nodeN]);
+```
+
+Then we test that `minMax(...)` works correctly for each node:
+
+```js
+assert(minMax(redLeaf, true) == 1);
+assert(minMax(blueLeaf, true) == -1);
+assert(minMax(drawLeaf, true) == 0);
+
+assert(minMax(nodeA, false) == 0);
+assert(minMax(nodeB, false) == -1);
+assert(minMax(nodeC, false) == -1);
+assert(minMax(nodeD, false) == -1);
+assert(minMax(nodeE, false) == 0);
+assert(minMax(nodeF, false) == -1);
+assert(minMax(nodeG, false) == 1);
+assert(minMax(nodeH, false) == 1);
+
+assert(minMax(nodeI, true) == 0);
+assert(minMax(nodeJ, true) == -1);
+assert(minMax(nodeK, true) == 0);
+assert(minMax(nodeL, true) == 1);
+
+assert(minMax(nodeM, false) == -1);
+assert(minMax(nodeN, false) == 0);
+
+assert(minMax(nodeRoot, true) == 0);
+```
+
 ## <a name="lec2-3">Implementing MinMax</a>
 
 
