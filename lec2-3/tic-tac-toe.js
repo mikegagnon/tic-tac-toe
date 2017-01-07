@@ -257,6 +257,40 @@ function cellClick(row, col) {
 }
 
 /*******************************************************************************
+ * MinMax function
+ ******************************************************************************/
+
+// Arguments:
+//    node is the node for which we want to calculate its score
+//    player is either "red" or "blue" depending on whose turn it is
+//
+// solve(node, player) returns the best possible score
+// that the player can achieve from this node
+function minMax(node, maximizingPlayer) {
+    if (node.isLeaf()) {
+        return node.getScore();
+    }
+
+    if (maximizingPlayer) {
+        var bestScore = Number.MIN_SAFE_INTEGER;
+        var children = node.getChildren();
+        for (var i = 0; i < children.length; i++) {
+            var child = children[0];
+            var childScore = minMax(child, false);
+            bestScore = Math.max(childScore, bestScore)
+        }
+        return bestScore;
+    } else {
+        var bestScore == Number.MAX_SAFE_INTEGER;
+        for (child in node.getChildren()) {
+            var childScore = solve(child, true);
+            bestScore = Math.min(childScore, bestScore);
+        }
+        return bestScore;
+    }
+}
+
+/*******************************************************************************
  * TESTS
  ******************************************************************************/
 
