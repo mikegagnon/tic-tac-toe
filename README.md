@@ -857,16 +857,16 @@ Assuming it is Red's turn, and the game state matches the root node:
 1. Which move should Red make? Left or right?
 2. If both Red and Blue play perfectly, how will the game end? Red win, Blue win, or Draw?
 
-These questions are much more difficult this time...
+These questions may be much more difficult this time. If you're stumped, the following section
+will explain the trick for solving this puzzle.
 
+### How to solve a game tree
 
-### Game tree analysis 3
+Now we will introduce the spirit of MinMax. Here's how to solve a game tree.
 
-Now we will introduce the spirit of MinMax. Here's how our game-tree analysis works.
+First, I need to introduce the concept of *crystal balls."
 
-We begin the analysis at the leaf nodes, and work our way towards the root.
-
-<img src="game-tree-4.png">
+<img src="crystal-balls.png">
 
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
