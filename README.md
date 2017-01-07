@@ -951,6 +951,8 @@ a call trace. Trace the execution of MinMax for `solve(nodeA, "red")`.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
+Keep studying MinMax until it is 100% clear how it works.
+
 ## <a name="hint1-3-1">Hint 1 for Challenge 1.3</a>
 
 Check to see if the move is valid:
