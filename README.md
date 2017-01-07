@@ -23,6 +23,7 @@ And familiarity with OOP (object-orient programming) in JavaScript.
   - [Challenge 1.5 Game Over](#c1-5)
   - [Challenge 1.6 Highlight victory](#c1-6)
 - [Part 2. Artificial Intelligence](#part2)
+  - [Lecture 2.1 Game trees](#lec2-1)
 
 # <a name="part1">Part 1. Two-player Tic Tac Toe</a>
 
@@ -778,6 +779,8 @@ Update `drawMove(...)` so that in a victory, the winning cells are highlighted w
 <br><br><br>
 
 # <a name="part2">Part 2. Artificial Intelligence</a>
+
+## <a name="lec2-1">Lecture 2.1 Game trees</a>
 
 
 
