@@ -798,9 +798,9 @@ Garry Kasparov. Kasparov said he "saw deep intelligence and creativity in the ma
 However, despite Kasparov's romantic glamorization of MinMax,
 MinMax is neither a deep intelligence, nor is it creative.
 
-Rather, MinMax is, plain, boring, simple, beautiful, brute force. You will see how and why later.
+Rather, MinMax is plain, boring, simple, beautiful, brute force. You will see how and why later.
 
-For now, we must investigate the prerequistes for MinMax, namely we must investigate *game trees*.
+For now, we must investigate one of the prerequistes for MinMax, namely *game trees*.
 
 
 
