@@ -890,6 +890,7 @@ Therefore, the Red node inherits the crystal ball of its left child.
 
 <img src="crystal-balls-2.png">
 
+#### Example 3
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
