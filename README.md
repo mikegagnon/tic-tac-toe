@@ -24,7 +24,7 @@ And familiarity with OOP (object-orient programming) in JavaScript.
   - [Challenge 1.6 Highlight victory](#c1-6)
 - [Part 2. Artificial Intelligence](#part2)
   - [Lecture 2.1 Introduction](#lec2-1)
-  - [Lecture 2.2 Game Trees](#lec2-2)
+  - [Lecture 2.2 Solving game trees](#lec2-2)
   - [Lecture 2.3 Implementing MinMax](#lec2-3)
 
 # <a name="part1">Part 1. Two-player Tic Tac Toe</a>
@@ -805,7 +805,7 @@ Rather, MinMax is plain, boring, simple, beautiful, brute force. You will see ho
 For now, we must investigate one of the prerequistes for MinMax, namely *game trees*.
 
 
-## <a name="lec2-2">Lecture 2.2 Game Trees</a>
+## <a name="lec2-2">Lecture 2.2 Solving game trees</a>
 
 Recall [binary search trees](https://github.com/mikegagnon/bst/blob/master/README.md).
 
