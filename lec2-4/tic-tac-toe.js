@@ -11,6 +11,14 @@ EMPTY = 0;
 PLAYER_X = 1;
 PLAYER_O = 2;
 
+var FIRST_PLAYER = undefined;
+
+if (Math.random() < 0.5) {
+    FIRST_PLAYER = PLAYER_X;
+} else {
+    FIRST_PLAYER = PLAYER_O;
+}
+
 /*******************************************************************************
  * Move is the interface between TicTacToe and Viz
  ******************************************************************************/
@@ -263,8 +271,13 @@ function makeAiMove(game) {
 /*******************************************************************************
  * Controller code
  ******************************************************************************/
-var GAME = new TicTacToe(PLAYER_X);
+var GAME = new TicTacToe(FIRST_PLAYER);
 var VIZ = new Viz(100);
+
+if (FIRST_PLAYER == PLAYER_O) {
+    move = makeAiMove(GAME);
+    VIZ.drawMove(move);
+}
 
 function cellClick(row, col) {
 
