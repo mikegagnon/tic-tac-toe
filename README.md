@@ -587,7 +587,7 @@ We make three modifications to the `makeMove(...)` method.
    This way we can exit the method right away if the game is already over.
 2. We modify the instantiation of the `move` object by adding
    `this.gameOver` to the argument list (since the `Move` constructor
-   now takes a gameOver argument).
+   now takes a `gameOver` argument).
 3. We invoke `this.checkGameOver()`, which is the subject of the next section.
 
 ```js
