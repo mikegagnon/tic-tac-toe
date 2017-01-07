@@ -782,6 +782,26 @@ Update `drawMove(...)` so that in a victory, the winning cells are highlighted w
 
 ## <a name="lec2-1">Lecture 2.1 Game trees</a>
 
+In Part 2 of this project will will develop an AI for Tic Tac Toe, so that
+a human player may play against the computer. Our AI will be unbeatable;
+it will not be possible for a human player to defeat our AI.
+
+How do we accomplish such a feat? We will use a classic algorithm known as *MinMax*.
+MinMax is awesome.
+
+For decades, computer scientists and software engineers have been
+using MinMax to produce absurdly strong AIs. 
+
+The first time MinMax defeated a chess world champion was in 1996, against
+Garry Kasparov. Kasparov said he "saw deep intelligence and creativity in the machine's moves."
+
+However, despite Kasparov's romantic glamorization of MinMax,
+MinMax is neither a deep intelligence, nor is it creative.
+
+Rather, MinMax is, plain, boring, simple, beautiful, brute force. You will see how and why later.
+
+For now, we must investigate the prerequistes for MinMax, namely we must investigate *game trees*.
+
 
 
 
