@@ -811,7 +811,7 @@ A tree is a network of nodes that branch out like a tree.
 A *game tree* is a tree where:
 
 1. the nodes contain game states
-2. the children of a parent, are represent the game states that are one step away from the parent. 
+2. the children of a parent, represent the game states that are one step away from the parent. 
 
 Game trees might be easier to visualize than to explain in English. Here is an abridged diagram for the 
 Tic Tac Toe game tree:
