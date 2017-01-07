@@ -646,8 +646,115 @@ class  TicTacToe {
 - [Hint 6](#hint1-5-6)
 - [Solution](#solution1-5) 
 
+### Tests
 
+These tests verify/refute the correctness of `checkGameOver()`: 
 
+```js
+/* TESTS for checkGameOver ****************************************************/
+var game = new TicTacToe(PLAYER_X);
+game.matrix = [
+    [EMPTY,    EMPTY,    EMPTY],
+    [EMPTY,    EMPTY,    EMPTY],
+    [EMPTY,    EMPTY,    EMPTY]
+];
+
+// Vertical victories
+var game = new TicTacToe(PLAYER_X);
+game.matrix = [
+    [PLAYER_X,    EMPTY,    EMPTY],
+    [PLAYER_X,    EMPTY,    EMPTY],
+    [PLAYER_X,    EMPTY,    EMPTY]
+];
+game.checkGameOver()
+assert(game.gameOver.victor == PLAYER_X);
+assert(matricesEqual(game.gameOver.victoryCells, [[0,0], [1,0], [2,0]]));
+
+var game = new TicTacToe(PLAYER_X);
+game.matrix = [
+    [EMPTY,    PLAYER_O,    EMPTY],
+    [EMPTY,    PLAYER_O,    EMPTY],
+    [EMPTY,    PLAYER_O,    EMPTY]
+];
+game.checkGameOver()
+assert(game.gameOver.victor == PLAYER_O);
+assert(matricesEqual(game.gameOver.victoryCells, [[0,1], [1,1], [2,1]]));
+
+var game = new TicTacToe(PLAYER_X);
+game.matrix = [
+    [EMPTY,    EMPTY,    PLAYER_O],
+    [EMPTY,    EMPTY,    PLAYER_O],
+    [EMPTY,    EMPTY,    PLAYER_O]
+];
+
+game.checkGameOver()
+assert(game.gameOver.victor == PLAYER_O);
+assert(matricesEqual(game.gameOver.victoryCells, [[0,2], [1,2], [2,2]]));
+
+// Horizonal victories
+var game = new TicTacToe(PLAYER_X);
+game.matrix = [
+    [PLAYER_X, PLAYER_X, PLAYER_X],
+    [EMPTY,    EMPTY,    EMPTY],
+    [EMPTY,    EMPTY,    EMPTY]
+];
+game.checkGameOver()
+assert(game.gameOver.victor == PLAYER_X);
+assert(matricesEqual(game.gameOver.victoryCells, [[0,0], [0,1], [0,2]]));
+
+var game = new TicTacToe(PLAYER_X);
+game.matrix = [
+    [EMPTY,    EMPTY,    EMPTY],
+    [PLAYER_X, PLAYER_X, PLAYER_X],
+    [EMPTY,    EMPTY,    EMPTY]
+];
+game.checkGameOver()
+assert(game.gameOver.victor == PLAYER_X);
+assert(matricesEqual(game.gameOver.victoryCells, [[1,0], [1,1], [1,2]]));
+
+var game = new TicTacToe(PLAYER_X);
+game.matrix = [
+    [EMPTY,    EMPTY,    EMPTY],
+    [EMPTY,    EMPTY,    EMPTY],
+    [PLAYER_X, PLAYER_X, PLAYER_X],
+];
+game.checkGameOver()
+assert(game.gameOver.victor == PLAYER_X);
+assert(matricesEqual(game.gameOver.victoryCells, [[2,0], [2,1], [2,2]]));
+
+// Diagonal victories
+var game = new TicTacToe(PLAYER_X);
+game.matrix = [
+    [PLAYER_X, EMPTY,    EMPTY],
+    [EMPTY,    PLAYER_X, EMPTY],
+    [EMPTY,    EMPTY,    PLAYER_X]
+];
+game.checkGameOver()
+assert(game.gameOver.victor == PLAYER_X);
+assert(matricesEqual(game.gameOver.victoryCells, [[0,0], [1,1], [2,2]]));
+
+var game = new TicTacToe(PLAYER_X);
+game.matrix = [
+    [EMPTY,    EMPTY,    PLAYER_O],
+    [EMPTY,    PLAYER_O, EMPTY],
+    [PLAYER_O, EMPTY,    EMPTY]
+];
+game.checkGameOver()
+assert(game.gameOver.victor == PLAYER_O);
+assert(matricesEqual(game.gameOver.victoryCells, [[0,2], [1,1], [2,0]]));
+
+// Draws
+var game = new TicTacToe(PLAYER_X);
+game.matrix = [
+    [PLAYER_O, PLAYER_X, PLAYER_O],
+    [PLAYER_X, PLAYER_X, PLAYER_O],
+    [PLAYER_O, PLAYER_O, PLAYER_X]
+];
+game.checkGameOver()
+assert(game.gameOver.victor == undefined);
+assert(game.gameOver.victoryCells == undefined);
+
+```
 
 
 
