@@ -26,6 +26,7 @@ And familiarity with OOP (object-orient programming) in JavaScript.
   - [Lecture 2.1 Introduction](#lec2-1)
   - [Lecture 2.2 Solving game trees](#lec2-2)
   - [Lecture 2.3 Implementing MinMax](#lec2-3)
+  - [Lecture 2.4 One-player framework](#lec2-4)
 
 # <a name="part1">Part 1. Two-player Tic Tac Toe</a>
 
