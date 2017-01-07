@@ -808,7 +808,14 @@ Recall [binary search trees](https://github.com/mikegagnon/bst/blob/master/READM
 
 A tree is a network of nodes that branch out like a tree.
 
-A *game tree* is a tree where the nodes contain game states.
+A *game tree* is a tree where:
+
+1. the nodes contain game states
+2. the children of a parent, are represent the game states that are one step away from the parent. 
+
+Game trees might be easier to visualize than to explain in English.
+
+<img src="game-tree-1.png">
 
 
 
