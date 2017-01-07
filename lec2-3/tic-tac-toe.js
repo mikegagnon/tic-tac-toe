@@ -262,7 +262,8 @@ function cellClick(row, col) {
 
 // Arguments:
 //    node is the node for which we want to calculate its score
-//    player is either "red" or "blue" depending on whose turn it is
+//    maximizingPlayer is true if node wants to maximize its score
+//    maximizingPlayer is false if node wants to minimize its score
 //
 // minMax(node, player) returns the best possible score
 // that the player can achieve from this node
@@ -276,8 +277,11 @@ function minMax(node, maximizingPlayer) {
         return node.getScore();
     }
 
+    // If the node wants to maximize its score:
     if (maximizingPlayer) {
         var bestScore = Number.MIN_SAFE_INTEGER;
+
+        // find the child with the highest score
         var children = node.getChildren();
         for (var i = 0; i < children.length; i++) {
             var child = children[i];
@@ -285,8 +289,13 @@ function minMax(node, maximizingPlayer) {
             bestScore = Math.max(childScore, bestScore)
         }
         return bestScore;
-    } else {
+    }
+
+    // If the node wants to minimize its score:
+    else {
         var bestScore = Number.MAX_SAFE_INTEGER;
+
+        // find the child with the lowest score
         var children = node.getChildren();
         for (var i = 0; i < children.length; i++) {
             var child = children[i];
