@@ -908,9 +908,9 @@ Now, we can express an algorithm for solving games in pseudo code:
 //    node is the node for which we want to calculate its score
 //    player is either "red" or "blue" depending on whose turn it is
 //
-// solveGame(node, player) returns the best possible score
+// solve(node, player) returns the best possible score
 // that the player can achieve from this node
-function solveGame(node, player) {
+function solve(node, player) {
   if (node.isLeaf()) {
     return node.score()
   }
@@ -921,7 +921,7 @@ function solveGame(node, player) {
   if (player == "red") {
     var bestScore == −∞
     for (child in node.getChildren()) {
-      var childScore = solveGame(child, "blue")
+      var childScore = solve(child, "blue")
       bestScore = max(childScore, bestScore)
     }
     return bestScore
@@ -932,7 +932,7 @@ function solveGame(node, player) {
   else {
     var bestScore == ∞
     for (child in node.getChildren()) {
-      var childScore = solveGame(child, "red")
+      var childScore = solve(child, "red")
       bestScore = min(childScore, bestScore)
     }
     return bestScore
@@ -940,7 +940,14 @@ function solveGame(node, player) {
 }
 ```
 
-The `solveGame(...)` algorithm is the MinMax algorithm!
+The `solve(...)` algorithm is the MinMax algorithm!
+
+### Call trace
+
+If you need further insight into how MinMax works, we can examine
+a call trace. Trace the execution of MinMax for `solve(nodeA, "red")`.
+
+<img src="call-trace.png">
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
