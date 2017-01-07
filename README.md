@@ -22,7 +22,8 @@ And familiarity with OOP (object-orient programming) in JavaScript.
   - [Challenge 1.4 Pretty graphics](#c1-4)
   - [Challenge 1.5 Game Over](#c1-5)
   - [Challenge 1.6 Highlight victory](#c1-6)
-  
+- [Part 2. Artificial Intelligence](#part2)
+
 # <a name="part1">Part 1. Two-player Tic Tac Toe</a>
 
 ## <a name="lec1-1">Lecture 1.1 Framework for `TicTacToe` class</a>
@@ -766,6 +767,17 @@ assert(game.gameOver.victoryCells == undefined);
 Update `drawMove(...)` so that in a victory, the winning cells are highlighted with color #F7DC6F. (I used http://htmlcolorcodes.com/ to pick the color)
 
 - [Solution](#solution1-6)
+
+
+
+
+
+
+
+
+<br><br><br>
+
+# <a name="part2">Part 2. Artificial Intelligence</a>
 
 
 
