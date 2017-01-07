@@ -894,10 +894,10 @@ Therefore, the Red node inherits the crystal ball of its left child.
 
 <img src="crystal-balls-4.png">
 
-#### Numeric values instead of crystal balls
+### Score values instead of crystal balls
 
 In order to turn our crystal-ball algorithm into an algorithm a computer can understand,
-we replace crystal balls with numeric values.
+we replace crystal balls with score values.
 
 <img src="crystal-balls-5.png">
 
