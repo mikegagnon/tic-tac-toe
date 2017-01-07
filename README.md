@@ -482,29 +482,42 @@ Let's detect when a game has reached it's end.
 
 ### Introducing the `GameOver` class
 
-`GameOver` objects store information about the end of the game.
-Hopefully the comments below explain it well enough.
-
 ```js
+// GameOver objects store information about the end of the game.
 class GameOver {
-    // Either this.victor == undefined (indicating a draw), or
-    // this.victor == PLAYER_X, or
-    // this.victor == PLAYER_O...
-    // depending upon who won the game.
+
+    // There are two fields in a GameOver object:
+    //      1. this.victor
+    //      2. this.victoryCells
     //
-    // Either victoryCells == undefined (indicating a draw,), or
-    // dthis.victoryCells is an array of (row, col) pairs.
-    // For example this.victoryCells might == [[0,0], [1,1], [2, 2]]
-    // this.victoryCells denotes which (row, col) pairs constitute the
-    // victories triple of cells that won the game.
+    // this.victor
+    // ===========
+    // this.victor is equal to one of the following:
+    //      (A) undefined
+    //      (B) PLAYER_X
+    //      (C) PLAYER_O
     //
-    // For example, if this.matrix == [
-    //      [EMPTY,    EMPTY,    EMPTY],
-    //      [EMPTY,    EMPTY,    EMPTY],
-    //      [PLAYER_X, PLAYER_X, PLAYER_X],
-    // ]
+    // if this.victor == undefined, then that indicates the game ended ina draw
+    // if this.victor == PLAYER_X, then that indicates PLAYER_X won the game
+    // if this.victor == PLAYER_O, then that indicates PLAYER_O won the game
+    //
+    // this.victoryCells
+    // =================
+    // this.victoryCells is either:
+    //      (A) undefined
+    //      (B) a list of three [row, col] pairs
+    //
+    // if this.victoryCells == undefined, then that indicates the game ended in
+    // a draw.
+    //
+    // if this.victoryCells is a list of three [row, col] pairs, then that
+    // indicates the game has ended in a victory. Furthermore the three 
+    // [row, col] pairs indicate which cells contain the winning 3-in-a-row
+    // marks.
     // 
-    // then, this.victoryCells would be [[2,0], [2,1], [2,2]]
+    // As an example: this.victoryCells might equal [[0,0], [1,1], [2, 2]].
+    // This denotes that (row 0, col 0), (row 1, col 1), and (row 2, col 2)
+    // constitute the three cells that contain the winning 3-in-a-row marks.
     constructor(victor, victoryCells) {
         this.victor = victor;
         this.victoryCells = victoryCells;
