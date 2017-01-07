@@ -802,6 +802,17 @@ Rather, MinMax is plain, boring, simple, beautiful, brute force. You will see ho
 
 For now, we must investigate one of the prerequistes for MinMax, namely *game trees*.
 
+### Game trees
+
+Recall [binary search trees](https://github.com/mikegagnon/bst/blob/master/README.md).
+
+A tree is a network of nodes that branch out like a tree.
+
+A *game tree* is a tree where the nodes contain game states.
+
+
+
+
 
 
 
