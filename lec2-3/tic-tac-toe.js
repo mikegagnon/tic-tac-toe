@@ -264,8 +264,13 @@ function cellClick(row, col) {
 //    node is the node for which we want to calculate its score
 //    player is either "red" or "blue" depending on whose turn it is
 //
-// solve(node, player) returns the best possible score
+// minMax(node, player) returns the best possible score
 // that the player can achieve from this node
+//
+// node must be an object with the following methods:
+//    node.isLeaf()
+//    node.getScore()
+//    node.getChildren()
 function minMax(node, maximizingPlayer) {
     if (node.isLeaf()) {
         return node.getScore();
@@ -275,16 +280,18 @@ function minMax(node, maximizingPlayer) {
         var bestScore = Number.MIN_SAFE_INTEGER;
         var children = node.getChildren();
         for (var i = 0; i < children.length; i++) {
-            var child = children[0];
+            var child = children[i];
             var childScore = minMax(child, false);
             bestScore = Math.max(childScore, bestScore)
         }
         return bestScore;
     } else {
-        var bestScore == Number.MAX_SAFE_INTEGER;
-        for (child in node.getChildren()) {
-            var childScore = solve(child, true);
-            bestScore = Math.min(childScore, bestScore);
+        var bestScore = Number.MAX_SAFE_INTEGER;
+        var children = node.getChildren();
+        for (var i = 0; i < children.length; i++) {
+            var child = children[i];
+            var childScore = minMax(child, true);
+            bestScore = Math.min(childScore, bestScore)
         }
         return bestScore;
     }
@@ -457,3 +464,92 @@ game.matrix = [
 game.checkGameOver()
 assert(game.gameOver.victor == undefined);
 assert(game.gameOver.victoryCells == undefined);
+
+/*******************************************************************************
+ * MinMax test
+ ******************************************************************************/
+
+class DummyNode {
+
+    constructor(children, score = undefined) {
+        this.children = children;
+        this.score = score;
+    }
+
+    isLeaf() {
+        return this.children.length == 0;
+    }
+
+    getScore() {
+        assert(this.isLeaf());
+        return this.score;
+    }
+
+    getChildren() {
+        return this.children;
+    }
+}
+
+// The game tree illustrated in
+// https://github.com/mikegagnon/tic-tac-toe/blob/master/crystal-balls-5.png
+
+// Red is maximinzing
+// Blue is minimizing
+
+// Red layer
+var redLeaf = new DummyNode([], 1);
+var blueLeaf = new DummyNode([], -1);
+var drawLeaf = new DummyNode([], 0);
+
+// Blue layer
+var nodeA = new DummyNode([redLeaf, drawLeaf]);
+var nodeB = new DummyNode([blueLeaf, drawLeaf]);
+var nodeC = new DummyNode([blueLeaf, redLeaf]);
+var nodeD = new DummyNode([blueLeaf, drawLeaf]);
+var nodeE = new DummyNode([redLeaf, drawLeaf]);
+var nodeF = new DummyNode([blueLeaf, drawLeaf]);
+var nodeG = new DummyNode([redLeaf, redLeaf]);
+var nodeH = new DummyNode([redLeaf, redLeaf]);
+
+// Red layer
+var nodeI = new DummyNode([nodeA, nodeB]);
+var nodeJ = new DummyNode([nodeC, nodeD]);
+var nodeK = new DummyNode([nodeE, nodeF]);
+var nodeL = new DummyNode([nodeG, nodeH]);
+
+// Blue layer
+var nodeM = new DummyNode([nodeI, nodeJ]);
+var nodeN = new DummyNode([nodeK, nodeL]);
+
+// Red layer
+var nodeRoot = new DummyNode([nodeM, nodeN]);
+
+assert(minMax(redLeaf, true) == 1);
+assert(minMax(blueLeaf, true) == -1);
+assert(minMax(drawLeaf, true) == 0);
+
+assert(minMax(nodeA, false) == 0);
+assert(minMax(nodeB, false) == -1);
+assert(minMax(nodeC, false) == -1);
+assert(minMax(nodeD, false) == -1);
+assert(minMax(nodeE, false) == 0);
+assert(minMax(nodeF, false) == -1);
+assert(minMax(nodeG, false) == 1);
+assert(minMax(nodeH, false) == 1);
+
+assert(minMax(nodeI, true) == 0);
+assert(minMax(nodeJ, true) == -1);
+assert(minMax(nodeK, true) == 0);
+assert(minMax(nodeL, true) == 1);
+
+assert(minMax(nodeM, false) == -1);
+assert(minMax(nodeN, false) == 0);
+
+assert(minMax(nodeRoot, true) == 0);
+
+
+
+
+
+
+
