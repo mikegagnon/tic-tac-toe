@@ -176,8 +176,9 @@ class TicTacToe {
 
         this.matrix[row][col] = this.player;
 
-        var move = new Move(true, row, col, this.player, this.gameOver);
         this.checkGameOver();
+
+        var move = new Move(true, row, col, this.player, this.gameOver);
 
         if (this.player == PLAYER_X) {
             this.player = PLAYER_O;
