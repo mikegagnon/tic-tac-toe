@@ -820,7 +820,7 @@ Tic Tac Toe game tree:
 
 <img src="game-tree-1.png">
 
-### Evaluating game trees
+### Game tree analysis 1
 
 Consider the following game tree:
 
@@ -846,8 +846,27 @@ The game ends in a draw. Here's why:
   - Therefore Red goes left
 - Next, Blue goes right and ends the game in a draw
 
+### Game tree analysis 2
+
+Consider the following game tree:
+
+<img src="game-tree-3.png">
+
+Assuming it is Red's turn, and the game state matches the root node:
+
+1. Which move should Red make? Left or right?
+2. If both Red and Blue play perfectly, how will the game end? Red win, Blue win, or Draw?
+
+These questions are much more difficult this time...
 
 
+### Game tree analysis 3
+
+Now we will introduce the spirit of MinMax. Here's how our game-tree analysis works.
+
+We begin the analysis at the leaf nodes, and work our way towards the root.
+
+<img src="game-tree-4.png">
 
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
