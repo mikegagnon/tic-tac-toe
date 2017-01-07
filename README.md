@@ -652,12 +652,6 @@ These tests verify/refute the correctness of `checkGameOver()`:
 
 ```js
 /* TESTS for checkGameOver ****************************************************/
-var game = new TicTacToe(PLAYER_X);
-game.matrix = [
-    [EMPTY,    EMPTY,    EMPTY],
-    [EMPTY,    EMPTY,    EMPTY],
-    [EMPTY,    EMPTY,    EMPTY]
-];
 
 // Vertical victories
 var game = new TicTacToe(PLAYER_X);
