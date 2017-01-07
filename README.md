@@ -20,6 +20,7 @@ And familiarity with OOP (object-orient programming) in JavaScript.
   - [Lecture 1.2 Framework for controller and for `Viz` class](#lec1-2)
   - [Challenge 1.3 X's and O's](#c1-3)
   - [Challenge 1.4 Pretty graphics](#c1-4)
+  - [Challenge 1.5 Game Over](#c1-5)
 
 ## <a name="lec1-1">Lecture 1.1 Framework for `TicTacToe` class</a>
 
@@ -474,6 +475,289 @@ or `player-o.png` to the cell, depending on `move.player`.
 
 
 
+
+## <a name="c1-5">Challenge 1.5 Game Over</a>
+
+Let's detect when a game has reached it's end.
+
+### Introducing the `GameOver` class
+
+```js
+// GameOver objects store information about the end of the game.
+class GameOver {
+
+    // There are two fields in a GameOver object:
+    //      1. this.victor
+    //      2. this.victoryCells
+    //
+    // this.victor
+    // ===========
+    // this.victor is equal to one of the following:
+    //      (A) undefined
+    //      (B) PLAYER_X
+    //      (C) PLAYER_O
+    //
+    // if this.victor == undefined, then that indicates the game ended ina draw
+    // if this.victor == PLAYER_X, then that indicates PLAYER_X won the game
+    // if this.victor == PLAYER_O, then that indicates PLAYER_O won the game
+    //
+    // this.victoryCells
+    // =================
+    // this.victoryCells is either:
+    //      (A) undefined
+    //      (B) a list of three [row, col] pairs
+    //
+    // if this.victoryCells == undefined, then that indicates the game ended in
+    // a draw.
+    //
+    // if this.victoryCells is a list of three [row, col] pairs, then that
+    // indicates the game has ended in a victory. Furthermore the three 
+    // [row, col] pairs indicate which cells contain the winning 3-in-a-row
+    // marks.
+    // 
+    // As an example: this.victoryCells might equal [[0,0], [1,1], [2, 2]].
+    // This denotes that (row 0, col 0), (row 1, col 1), and (row 2, col 2)
+    // constitute the three cells that contain the winning 3-in-a-row marks.
+    constructor(victor, victoryCells) {
+        this.victor = victor;
+        this.victoryCells = victoryCells;
+    }
+}
+```
+
+### Update the `Move` class
+
+We add a `gameOver` reference to the `Move` class, which
+will help the `Viz` class highlight the victorious cells
+after a victory.
+
+```js
+class Move {
+    // valid == true iff the move results in change in game state
+    // (row, col) are the coordinates that player added their mark
+    // player is either PLAYER_X or PLAYER_O, depending on who made the move
+    // gameOver is either undefined (which signifies the game has not concluded)
+    // or gameOver is a GameOver object, representing the conclusion of the game
+    constructor(valid, row, col, player, gameOver) { // <------------------------------
+        this.valid = valid;
+        this.row = row;
+        this.col = col;
+        this.player = player;
+        this.gameOver = gameOver; // <-------------------------------------------------
+    }
+}
+```
+
+### Update the `TicTacToe` constructor
+
+```js
+class TicTacToe {
+
+    ...
+
+    // player is either PLAYER_X or PLAYER_O, and indicates which player has
+    // the opening move
+    constructor(player) {
+        this.matrix = [
+            [EMPTY, EMPTY, EMPTY],
+            [EMPTY, EMPTY, EMPTY],
+            [EMPTY, EMPTY, EMPTY]
+        ];
+
+        assert(player == PLAYER_X || player == PLAYER_O);
+
+        // this.player always equals the player (either PLAYER_X or PLAYER_O)
+        // who has the next move.
+        this.player = player;
+
+        // If the game is over, then this.gameOver equals a GameOver object
+        // that describes the properties of the conclusion of the game
+        // If the game is not over, then this.gameOver is undefined;
+        this.gameOver = undefined; // <------------------------------------------------
+
+    }
+}
+```
+
+### Update `makeMove(...)` method
+
+We make three modifications to the `makeMove(...)` method.
+
+1. We check to see if the game is over at the beginning of the method.
+   This way we can exit the method right away if the game is already over.
+2. We modify the instantiation of the `move` object by adding
+   `this.gameOver` to the argument list (since the `Move` constructor
+   now takes a `gameOver` argument).
+3. We invoke `this.checkGameOver()`, which is the subject of the next section.
+
+```js
+class TicTacToe {
+
+    ...
+
+    makeMove(row, col) {
+
+        assert(row >= 0 && row < NUM_ROWS);
+        assert(col >= 0 && col < NUM_COLS);
+
+        if (this.matrix[row][col] != EMPTY || this.gameOver != undefined) { // <--------------------------
+            return new Move(false, undefined, undefined, undefined);
+        } 
+
+        this.matrix[row][col] = this.player;
+
+        var move = new Move(true, row, col, this.player, this.gameOver); // <-----------------------------
+        this.checkGameOver(); // <------------------------------------------------------------------------
+
+        if (this.player == PLAYER_X) {
+            this.player = PLAYER_O;
+        } else {
+            this.player = PLAYER_X;
+        }
+
+        return move;
+    }
+}
+```
+
+### Challenge: implement `checkGameOver()`
+
+```js
+class  TicTacToe {
+
+    ...
+
+    // Determines whether or not the game has reached its conclusion.
+    // If the game is over, then sets this.gameOver to a GameOver object
+    // representing the conclusion of the game.
+    checkGameOver() {
+        // ?
+    }
+}
+```
+
+### Hints
+
+- [Hint 1](#hint1-5-1)
+- [Hint 2](#hint1-5-2)
+- [Hint 3](#hint1-5-3)
+- [Hint 4](#hint1-5-4)
+- [Hint 5](#hint1-5-5)
+- [Hint 6](#hint1-5-6)
+- [Solution](#solution1-5) 
+
+### Tests
+
+These tests verify/refute the correctness of `checkGameOver()`: 
+
+```js
+/* TESTS for checkGameOver ****************************************************/
+
+// Vertical victories
+var game = new TicTacToe(PLAYER_X);
+game.matrix = [
+    [PLAYER_X,    EMPTY,    EMPTY],
+    [PLAYER_X,    EMPTY,    EMPTY],
+    [PLAYER_X,    EMPTY,    EMPTY]
+];
+game.checkGameOver()
+assert(game.gameOver.victor == PLAYER_X);
+assert(matricesEqual(game.gameOver.victoryCells, [[0,0], [1,0], [2,0]]));
+
+var game = new TicTacToe(PLAYER_X);
+game.matrix = [
+    [EMPTY,    PLAYER_O,    EMPTY],
+    [EMPTY,    PLAYER_O,    EMPTY],
+    [EMPTY,    PLAYER_O,    EMPTY]
+];
+game.checkGameOver()
+assert(game.gameOver.victor == PLAYER_O);
+assert(matricesEqual(game.gameOver.victoryCells, [[0,1], [1,1], [2,1]]));
+
+var game = new TicTacToe(PLAYER_X);
+game.matrix = [
+    [EMPTY,    EMPTY,    PLAYER_O],
+    [EMPTY,    EMPTY,    PLAYER_O],
+    [EMPTY,    EMPTY,    PLAYER_O]
+];
+
+game.checkGameOver()
+assert(game.gameOver.victor == PLAYER_O);
+assert(matricesEqual(game.gameOver.victoryCells, [[0,2], [1,2], [2,2]]));
+
+// Horizonal victories
+var game = new TicTacToe(PLAYER_X);
+game.matrix = [
+    [PLAYER_X, PLAYER_X, PLAYER_X],
+    [EMPTY,    EMPTY,    EMPTY],
+    [EMPTY,    EMPTY,    EMPTY]
+];
+game.checkGameOver()
+assert(game.gameOver.victor == PLAYER_X);
+assert(matricesEqual(game.gameOver.victoryCells, [[0,0], [0,1], [0,2]]));
+
+var game = new TicTacToe(PLAYER_X);
+game.matrix = [
+    [EMPTY,    EMPTY,    EMPTY],
+    [PLAYER_X, PLAYER_X, PLAYER_X],
+    [EMPTY,    EMPTY,    EMPTY]
+];
+game.checkGameOver()
+assert(game.gameOver.victor == PLAYER_X);
+assert(matricesEqual(game.gameOver.victoryCells, [[1,0], [1,1], [1,2]]));
+
+var game = new TicTacToe(PLAYER_X);
+game.matrix = [
+    [EMPTY,    EMPTY,    EMPTY],
+    [EMPTY,    EMPTY,    EMPTY],
+    [PLAYER_X, PLAYER_X, PLAYER_X],
+];
+game.checkGameOver()
+assert(game.gameOver.victor == PLAYER_X);
+assert(matricesEqual(game.gameOver.victoryCells, [[2,0], [2,1], [2,2]]));
+
+// Diagonal victories
+var game = new TicTacToe(PLAYER_X);
+game.matrix = [
+    [PLAYER_X, EMPTY,    EMPTY],
+    [EMPTY,    PLAYER_X, EMPTY],
+    [EMPTY,    EMPTY,    PLAYER_X]
+];
+game.checkGameOver()
+assert(game.gameOver.victor == PLAYER_X);
+assert(matricesEqual(game.gameOver.victoryCells, [[0,0], [1,1], [2,2]]));
+
+var game = new TicTacToe(PLAYER_X);
+game.matrix = [
+    [EMPTY,    EMPTY,    PLAYER_O],
+    [EMPTY,    PLAYER_O, EMPTY],
+    [PLAYER_O, EMPTY,    EMPTY]
+];
+game.checkGameOver()
+assert(game.gameOver.victor == PLAYER_O);
+assert(matricesEqual(game.gameOver.victoryCells, [[0,2], [1,1], [2,0]]));
+
+// Draws
+var game = new TicTacToe(PLAYER_X);
+game.matrix = [
+    [PLAYER_O, PLAYER_X, PLAYER_O],
+    [PLAYER_X, PLAYER_X, PLAYER_O],
+    [PLAYER_O, PLAYER_O, PLAYER_X]
+];
+game.checkGameOver()
+assert(game.gameOver.victor == undefined);
+assert(game.gameOver.victoryCells == undefined);
+
+```
+
+
+
+
+
+
+
+
+
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 ## <a name="hint1-3-1">Hint 1 for Challenge 1.3</a>
@@ -652,3 +936,163 @@ The solution is simply the union of all the hints:
     }
  }
 ```
+
+
+- [Hint 1](#hint1-5-1) Categories for game over
+- [Hint 2](#hint1-5-2) shell implementation
+- [Hint 3](#hint1-5-3) implementation of checkVictoryHorizontal
+- [Hint 4](#hint1-5-4) implementation of checkVictoryVertical
+- [Hint 5](#hint1-5-5) implementation of checkVictoryDiagonal
+- [Hint 6](#hint1-5-6) explanation of checkDraw
+- [Solution](#solution1-5) 
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="hint1-5-1">Hint 1 for Challenge 1.5</a>
+
+There are several ways a Tic Tac Toe game may end:
+- A horizontal 3-in-a-row
+- A vertical 3-in-a-row
+- A diagonal 3-in-a-row
+- A draw, which occurs when there is not a 3-in-a-row and every cell is occupied
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="hint1-5-2">Hint 2 for Challenge 1.5</a>
+
+```js
+
+class TicTacToe {
+
+    ...
+
+    // Determines whether or not the game has reached its conclusion.
+    // If the game is over, then sets this.gameOver to a GameOver object
+    // representing the conclusion of the game.
+    checkGameOver() {
+        this.checkVictoryHorizontal();
+        this.checkVictoryVertical();
+        this.checkVictoryDiagonal();
+        if (this.gameOver == undefined) {
+            this.checkDraw();
+        }
+    }
+ }
+```
+
+Now implement:
+
+- `checkVictoryHorizontal()`
+- `checkVictoryVertical()`
+- `checkVictoryDiagonal()`
+- `checkDraw()`
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="hint1-5-3">Hint 3 for Challenge 1.5</a>
+
+```js
+class TicTacToe {
+
+    ...
+
+    checkVictoryHorizontal() {
+        for (var row = 0; row < NUM_ROWS; row++) {
+            var a = this.matrix[row][0];
+            var b = this.matrix[row][1];
+            var c = this.matrix[row][2];
+
+            if (a == b && b == c && a != EMPTY) {
+                this.gameOver = new GameOver(a, [[row, 0], [row, 1], [row, 2]]);
+            }
+        }
+    }
+}
+```
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="hint1-5-4">Hint 4 for Challenge 1.5</a>
+
+```js
+class TicTacToe {
+
+    ...
+
+    checkVictoryVertical() {
+        for (var col = 0; col < NUM_COLS; col++) {
+            var a = this.matrix[0][col];
+            var b = this.matrix[1][col];
+            var c = this.matrix[2][col];
+
+            if (a == b && b == c && a != EMPTY) {
+                this.gameOver = new GameOver(a, [[0, col], [1, col], [2, col]]);
+            }
+        }
+    }
+}
+```
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="hint1-5-5">Hint 5 for Challenge 1.5</a>
+
+```js
+class TicTacToe {
+
+    ...
+
+    checkVictoryDiagonal() {
+        var a = this.matrix[0][0];
+        var b = this.matrix[1][1];
+        var c = this.matrix[2][2];
+        if (a == b && b == c && a != EMPTY) {
+            this.gameOver = new GameOver(a, [[0, 0], [1, 1], [2, 2]]);
+        }
+
+        var a = this.matrix[0][2];
+        var b = this.matrix[1][1];
+        var c = this.matrix[2][0];
+        if (a == b && b == c && a != EMPTY) {
+            this.gameOver = new GameOver(a, [[0, 2], [1, 1], [2, 0]]);
+        }
+    }
+}
+```
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="hint1-5-6">Hint 6 for Challenge 1.5</a>
+
+```js
+class TicTacToe {
+
+    ...
+
+    checkDraw() {
+        for (var row = 0; row < NUM_ROWS; row++) {
+            for (var col = 0; col < NUM_COLS; col++) {
+                if (this.matrix[row][col] == EMPTY) {
+                    return;
+                }
+            }
+        }
+
+        this.gameOver = new GameOver(undefined, undefined);
+    }
+}
+```
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="solution1-5">Solution for Challenge 1.5</a>
+
+The solution is simply the union of the hints:
+
+- [Hint 1](#hint1-5-1)
+- [Hint 2](#hint1-5-2)
+- [Hint 3](#hint1-5-3)
+- [Hint 4](#hint1-5-4)
+- [Hint 5](#hint1-5-5)
+- [Hint 6](#hint1-5-6)
