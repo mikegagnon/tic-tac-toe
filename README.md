@@ -23,7 +23,8 @@ And familiarity with OOP (object-orient programming) in JavaScript.
   - [Challenge 1.5 Game Over](#c1-5)
   - [Challenge 1.6 Highlight victory](#c1-6)
 - [Part 2. Artificial Intelligence](#part2)
-  - [Lecture 2.1 Game trees](#lec2-1)
+  - [Lecture 2.1 Introduction](#lec2-1)
+  - [Lecture 2.2 Game Trees](#lec2-2)
 
 # <a name="part1">Part 1. Two-player Tic Tac Toe</a>
 
@@ -780,7 +781,7 @@ Update `drawMove(...)` so that in a victory, the winning cells are highlighted w
 
 # <a name="part2">Part 2. Artificial Intelligence</a>
 
-## <a name="lec2-1">Lecture 2.1 Game trees</a>
+## <a name="lec2-1">Lecture 2.1 Introduction</a>
 
 In Part 2 of this project will will develop an AI for Tic Tac Toe, so that
 a human player may play against the computer. Our AI will be unbeatable;
@@ -802,7 +803,8 @@ Rather, MinMax is plain, boring, simple, beautiful, brute force. You will see ho
 
 For now, we must investigate one of the prerequistes for MinMax, namely *game trees*.
 
-### Game trees
+
+## <a name="lec2-2">Lecture 2.2 Game Trees</a>
 
 Recall [binary search trees](https://github.com/mikegagnon/bst/blob/master/README.md).
 
@@ -818,7 +820,13 @@ Tic Tac Toe game tree:
 
 <img src="game-tree-1.png">
 
+### Evaluating game trees
 
+Consider the following game tree:
+
+<img src="game-tree-2.png">
+
+Assuming it is blue's turn, and the game state matches the root node, which move should blue make? Left or right?
 
 
 
