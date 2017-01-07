@@ -901,6 +901,45 @@ we replace crystal balls with numeric values.
 
 <img src="crystal-balls-5.png">
 
+Now, we can express an algorithm for solving games in pseudo code:
+
+```js
+// Arguments:
+//    node is the node for which we want to calculate its score
+//    player is either "red" or "blue" depending on whose turn it is
+//
+// solveGame(node, player) returns the best possible score
+// that the player can achieve from this node
+function solveGame(node, player) {
+  if (node.isLeaf()) {
+    return node.score()
+  }
+  
+  // on red's turn, red finds the score of each of its
+  // children, and chooses the the largest score
+  // since red wants to maximize the score
+  if (player == "red") {
+    var bestScore == −∞
+    for (child in node.getChildren()) {
+      var childScore = solveGame(child, "blue")
+      bestScore = max(childScore, bestScore)
+    }
+    return bestScore
+  }
+  // on blue's turn, blue finds the score of each of its
+  // children, and chooses the the smallest score
+  // since blue wants to minimize the score
+  else {
+    var bestScore == ∞
+    for (child in node.getChildren()) {
+      var childScore = solveGame(child, "red")
+      bestScore = min(childScore, bestScore)
+    }
+    return bestScore
+  }
+}
+```
+
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
