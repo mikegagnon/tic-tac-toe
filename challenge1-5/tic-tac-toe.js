@@ -315,12 +315,6 @@ var expected_matrix = [
 assert(matricesEqual(game.matrix, expected_matrix));
 
 /* TESTS for checkGameOver ****************************************************/
-var game = new TicTacToe(PLAYER_X);
-game.matrix = [
-    [EMPTY,    EMPTY,    EMPTY],
-    [EMPTY,    EMPTY,    EMPTY],
-    [EMPTY,    EMPTY,    EMPTY]
-];
 
 // Vertical victories
 var game = new TicTacToe(PLAYER_X);
