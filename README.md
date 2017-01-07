@@ -826,7 +826,10 @@ Consider the following game tree:
 
 <img src="game-tree-2.png">
 
-Assuming it is blue's turn, and the game state matches the root node, which move should blue make? Left or right?
+Assuming it is Blue's turn, and the game state matches the root node:
+
+1. Which move should Blue make? Left or right?
+2. If both Red and Blue play perfectly, how will the game end? Red win, Blue win, or Draw?
 
 
 
