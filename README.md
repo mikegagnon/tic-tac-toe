@@ -25,6 +25,7 @@ And familiarity with OOP (object-orient programming) in JavaScript.
 - [Part 2. Artificial Intelligence](#part2)
   - [Lecture 2.1 Introduction](#lec2-1)
   - [Lecture 2.2 Game Trees](#lec2-2)
+  - [Lecture 2.3 Implementing MinMax](#lec2-3)
 
 # <a name="part1">Part 1. Two-player Tic Tac Toe</a>
 
@@ -912,7 +913,7 @@ Now, we can express an algorithm for solving games in pseudo code:
 // that the player can achieve from this node
 function solve(node, player) {
   if (node.isLeaf()) {
-    return node.score()
+    return node.getScore()
   }
   
   // on red's turn, red finds the score of each of its
@@ -942,14 +943,13 @@ function solve(node, player) {
 
 The `solve(...)` algorithm is the MinMax algorithm!
 
-### Call trace
+## <a name="lec2-3">Implementing MinMax</a>
 
-If you need further insight into how MinMax works, we can examine
-a call trace. Trace the execution of MinMax for `solve(nodeA, "red")`.
 
-<img src="call-trace.png">
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+Keep studying MinMax until it is 100% clear how it works.
 
 ## <a name="hint1-3-1">Hint 1 for Challenge 1.3</a>
 
