@@ -638,13 +638,12 @@ class  TicTacToe {
 
 ### Hints
 
-- [Hint 1](#hint1-5-1) Categories for game over
-- [Hint 2](#hint1-5-2) shell implementation
-- [Hint 3](#hint1-5-3) implementation of checkVictoryHorizontal
-- [Hint 4](#hint1-5-4) implementation of checkVictoryVertical
-- [Hint 5](#hint1-5-5) implementation of checkVictoryDiagonal
-- [Hint 6](#hint1-5-6) explanation of checkDraw
-- [Hint 7](#hint1-5-7) implementation of checkDraw
+- [Hint 1](#hint1-5-1)
+- [Hint 2](#hint1-5-2)
+- [Hint 3](#hint1-5-3)
+- [Hint 4](#hint1-5-4)
+- [Hint 5](#hint1-5-5)
+- [Hint 6](#hint1-5-6)
 - [Solution](#solution1-5) 
 
 
