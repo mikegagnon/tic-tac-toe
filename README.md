@@ -866,7 +866,7 @@ class TicTacToe {
 
     ...
 
-    // Determines whether or the game has reached its conclusion.
+    // Determines whether or not the game has reached its conclusion.
     // If the game is over, then sets this.gameOver to a GameOver object
     // representing the conclusion of the game.
     checkGameOver() {
