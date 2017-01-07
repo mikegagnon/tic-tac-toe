@@ -876,6 +876,20 @@ in a Red victory, Blue victory, or a draw (assuming both players are play perfec
 
 For this example, the destiny of the root node is clearly a draw because a draw is Blue's best move.
 
+#### Example 2
+
+<img src="crystal-balls-3.png">
+
+In this example, what is the crystal ball for the root Red node? To figure this out, we only need
+to look at the crystal balls for its two children:
+
+- If the root Red node goes left, it is destined for a draw (assuming perfect play)
+- If the root Red node goes right, it is destined for a Blue victory (assuming perfect play)
+
+Therefore, the Red node inherits the crystal ball of its left child.
+
+<img src="crystal-balls-2.png">
+
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
