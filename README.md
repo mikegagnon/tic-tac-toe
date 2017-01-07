@@ -940,6 +940,7 @@ function solveGame(node, player) {
 }
 ```
 
+The `solveGame(...)` algorithm is the MinMax algorithm!
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
