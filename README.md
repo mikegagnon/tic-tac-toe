@@ -864,9 +864,17 @@ will explain the trick for solving this puzzle.
 
 Now we will introduce the spirit of MinMax. Here's how to solve a game tree.
 
-First, I need to introduce the concept of *crystal balls."
+First, I need to introduce the concept of *crystal balls*.
+
+#### Example 1
 
 <img src="crystal-balls.png">
+
+There are three nodes in this game tree. Attached to the left of each node, is a crystal ball.
+The crystal ball for a node denotes the destiny for that node: whether the game will end
+in a Red victory, Blue victory, or a draw (assuming both players are play perfectly).
+
+For this example, the destiny of the root node is clearly a draw because a draw is Blue's best move.
 
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
