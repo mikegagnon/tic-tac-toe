@@ -15,12 +15,15 @@ And familiarity with OOP (object-orient programming) in JavaScript.
 
 ## Contents
 
-- [Part 1. Two-player Tic Tac Toe]
+- [Part 1. Two-player Tic Tac Toe](#part1)
   - [Lecture 1.1 Framework for `TicTacToe` class](#lec1-1)
   - [Lecture 1.2 Framework for controller and for `Viz` class](#lec1-2)
   - [Challenge 1.3 X's and O's](#c1-3)
   - [Challenge 1.4 Pretty graphics](#c1-4)
   - [Challenge 1.5 Game Over](#c1-5)
+  - [Challenge 1.6 Highlight victory](#c1-6)
+  
+# <a name="part1">Part 1. Two-player Tic Tac Toe</a>
 
 ## <a name="lec1-1">Lecture 1.1 Framework for `TicTacToe` class</a>
 
@@ -606,8 +609,9 @@ class TicTacToe {
 
         this.matrix[row][col] = this.player;
 
-        var move = new Move(true, row, col, this.player, this.gameOver); // <-----------------------------
         this.checkGameOver(); // <------------------------------------------------------------------------
+
+        var move = new Move(true, row, col, this.player, this.gameOver); // <-----------------------------
 
         if (this.player == PLAYER_X) {
             this.player = PLAYER_O;
@@ -753,6 +757,15 @@ assert(game.gameOver.victoryCells == undefined);
 
 
 
+
+
+
+
+## <a name="c1-6">Challenge 1.6 Highlight victory</a>
+
+Update `drawMove(...)` so that in a victory, the winning cells are highlighted with color #F7DC6F. (I used http://htmlcolorcodes.com/ to pick the color)
+
+- [Solution](#solution1-6)
 
 
 
@@ -1096,3 +1109,36 @@ The solution is simply the union of the hints:
 - [Hint 4](#hint1-5-4)
 - [Hint 5](#hint1-5-5)
 - [Hint 6](#hint1-5-6)
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+## <a name="solution1-6">Solution for Challenge 1.6</a>
+
+```js
+class Viz {
+  
+    ...
+    
+    drawMove(move) {
+        if (!move.valid) {
+            return;
+        }
+
+        var cellId = Viz.getCellId(move.row, move.col);
+        var imgTag = this.getImgTag(move.player);
+        $("#" + cellId).append(imgTag);
+
+        if (move.gameOver != undefined &&  // <----------------------------------
+            move.gameOver.victoryCells != undefined) { // <----------------------
+
+            for (var i = 0; i < move.gameOver.victoryCells.length; i++) { // <---
+                var [row, col] = move.gameOver.victoryCells[i]; // <-------------
+
+                var cellId = Viz.getCellId(row, col); // <-----------------------
+                $("#" + cellId).css("background-color", "#F7DC6F"); // <---------
+
+            }
+        }
+    }
+}
+```
