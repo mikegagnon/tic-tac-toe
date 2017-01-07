@@ -831,6 +831,20 @@ Assuming it is Blue's turn, and the game state matches the root node:
 1. Which move should Blue make? Left or right?
 2. If both Red and Blue play perfectly, how will the game end? Red win, Blue win, or Draw?
 
+#### Which move should Blue make? Left or right?
+
+Clearly, Blue should go left. Going right would certainly result in Red winning the game.
+
+#### If both Red and Blue play perfectly, how will the game end? Red win, Blue win, or Draw?
+
+The game ends in a draw. Here's why:
+
+- Blue goes left
+- Next, Red can go left or right
+  - If Red goes left, then Blue will go for a draw (right)
+  - If Red goes right, then Blue will go for a win (left)
+  - Therefore Red goes left
+- Next, Blue goes right and ends the game in a draw
 
 
 
