@@ -902,46 +902,58 @@ we replace crystal balls with score values.
 
 <img src="crystal-balls-5.png">
 
-Now, we can express an algorithm for solving games in pseudo code:
+### MinMax
+
+Now, we can express the MinMax function for solving games:
 
 ```js
+
 // Arguments:
 //    node is the node for which we want to calculate its score
-//    player is either "red" or "blue" depending on whose turn it is
+//    maximizingPlayer is true if node wants to maximize its score
+//    maximizingPlayer is false if node wants to minimize its score
 //
-// solve(node, player) returns the best possible score
+// minMax(node, player) returns the best possible score
 // that the player can achieve from this node
-function solve(node, player) {
-  if (node.isLeaf()) {
-    return node.getScore()
-  }
-  
-  // on red's turn, red finds the score of each of its
-  // children, and chooses the the largest score
-  // since red wants to maximize the score
-  if (player == "red") {
-    var bestScore == −∞
-    for (child in node.getChildren()) {
-      var childScore = solve(child, "blue")
-      bestScore = max(childScore, bestScore)
+//
+// node must be an object with the following methods:
+//    node.isLeaf()
+//    node.getScore()
+//    node.getChildren()
+function minMax(node, maximizingPlayer) {
+    if (node.isLeaf()) {
+        return node.getScore();
     }
-    return bestScore
-  }
-  // on blue's turn, blue finds the score of each of its
-  // children, and chooses the the smallest score
-  // since blue wants to minimize the score
-  else {
-    var bestScore == ∞
-    for (child in node.getChildren()) {
-      var childScore = solve(child, "red")
-      bestScore = min(childScore, bestScore)
+
+    // If the node wants to maximize its score:
+    if (maximizingPlayer) {
+        var bestScore = Number.MIN_SAFE_INTEGER;
+
+        // find the child with the highest score
+        var children = node.getChildren();
+        for (var i = 0; i < children.length; i++) {
+            var child = children[i];
+            var childScore = minMax(child, false);
+            bestScore = Math.max(childScore, bestScore)
+        }
+        return bestScore;
     }
-    return bestScore
-  }
+
+    // If the node wants to minimize its score:
+    else {
+        var bestScore = Number.MAX_SAFE_INTEGER;
+
+        // find the child with the lowest score
+        var children = node.getChildren();
+        for (var i = 0; i < children.length; i++) {
+            var child = children[i];
+            var childScore = minMax(child, true);
+            bestScore = Math.min(childScore, bestScore)
+        }
+        return bestScore;
+    }
 }
 ```
-
-The `solve(...)` algorithm is the MinMax algorithm!
 
 ## <a name="lec2-3">Implementing MinMax</a>
 
