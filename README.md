@@ -942,12 +942,7 @@ function solve(node, player) {
 
 The `solve(...)` algorithm is the MinMax algorithm!
 
-### Call trace
 
-If you need further insight into how MinMax works, we can examine
-a call trace. Trace the execution of MinMax for `solve(nodeA, "red")`.
-
-<img src="call-trace.png">
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
