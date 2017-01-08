@@ -117,11 +117,9 @@ class TicTacToe {
             }
         }
 
-        if (this.gameOver == undefined) {
-            newTicTacToe.gameOver = undefined;
-        } else {
-            newTicTacToe.gameOver = this.gameOver;
-        }
+        // We do not need to make a deepCopy of this.gameOver
+        // because this.gameOver is immutable
+        newTicTacToe.gameOver = this.gameOver;
 
         return newTicTacToe;
     }
