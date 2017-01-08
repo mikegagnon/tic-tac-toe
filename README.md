@@ -26,6 +26,7 @@ And familiarity with OOP (object-orient programming) in JavaScript.
   - [Lecture 2.1 Introduction](#lec2-1)
   - [Lecture 2.2 Solving game trees](#lec2-2)
   - [Lecture 2.3 One-player framework](#lec2-3)
+  - [Lecture 2.4 MinMax returns the best move](#lec2-4)
 
 # <a name="part1">Part 1. Two-player Tic Tac Toe</a>
 
@@ -1072,7 +1073,7 @@ assert(minMax(nodeRoot, true) == 0);
 
 
 
-## <a name="lec2-3">One-player framework</a>
+## <a name="lec2-3">Lecture 2.3 One-player framework</a>
 
 Before applying MinMax to Tic Tac Toe, lets modify our game
 to be a one-player game, using an stupid AI.
@@ -1145,6 +1146,91 @@ function cellClick(row, col) {
 
 
 
+
+
+
+
+## <a name="lec2-4">Lecture 2.4 MinMax returns the best move</a>
+
+You may have noticed it already: our current `minMax(...)` implementation has
+a limitation. Specifically, `minMax(...)` returns the result of the game (assuming
+perfect play), but `minMax(...)` does not return the best move.
+
+For example, in the game tree below, the root node's best move is to go to the right.
+
+<img src="crystal-balls-5.png">
+
+We want `minMax(root, true)` to return `"right"`, so that way the Red AI
+can be told to move `"right"`.
+
+Below is an updated `minMax(...)` function that does just that.
+Now it returns a pair `[bestMove, bestScore]`.
+
+In order for this new `minMax(...)` to work, `Node` objects
+must have a method `getMove()` that returns a value (or object)
+representing the move from `node` to `child`.
+
+```js
+// Arguments:
+//    node is the node for which we want to calculate its score
+//    maximizingPlayer is true if node wants to maximize its score
+//    maximizingPlayer is false if node wants to minimize its score
+//
+// minMax(node, player) returns the best possible score
+// that the player can achieve from this node
+//
+// node must be an object with the following methods:
+//    node.isLeaf()
+//    node.getScore()
+//    node.getChildren()
+//    node.getMove()
+function minMax(node, maximizingPlayer) {
+    if (node.isLeaf()) {
+        return [node.getMove(), node.getScore()];
+    }
+
+    // If the node wants to maximize its score:
+    if (maximizingPlayer) {
+        var bestScore = Number.MIN_SAFE_INTEGER;
+        var bestMove = undefined;
+
+        // find the child with the highest score
+        var children = node.getChildren();
+        for (var i = 0; i < children.length; i++) {
+            var child = children[i];
+            var [_, childScore] = minMax(child, false);
+            bestScore = Math.max(childScore, bestScore);
+
+            if (bestScore == childScore) {
+                bestMove = child.getMove();
+            }
+
+        }
+        return [bestMove, bestScore];
+    }
+
+    // If the node wants to minimize its score:
+    else {
+        var bestScore = Number.MAX_SAFE_INTEGER;
+        var bestMove = undefined;
+
+        // find the child with the lowest score
+        var children = node.getChildren();
+        for (var i = 0; i < children.length; i++) {
+            var child = children[i];
+            var [_, childScore] = minMax(child, true);
+            bestScore = Math.min(childScore, bestScore);
+
+            if (bestScore == childScore) {
+                bestMove = child.getMove();
+            }
+        }
+        return [bestMove, bestScore];
+    }
+}
+```
+
+Study this new `minMax(...)` implemention until it makes 100% sense to you.
 
 
 
