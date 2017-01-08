@@ -27,6 +27,7 @@ And familiarity with OOP (object-orient programming) in JavaScript.
   - [Lecture 2.2 Solving game trees](#lec2-2)
   - [Lecture 2.3 One-player framework](#lec2-3)
   - [Lecture 2.4 MinMax returns the best move](#lec2-4)
+  - [Lecture 2.5 MinMax for Tic Tac Toe](#lec2-5)
 
 # <a name="part1">Part 1. Two-player Tic Tac Toe</a>
 
@@ -1150,6 +1151,7 @@ function cellClick(row, col) {
 
 
 
+
 ## <a name="lec2-4">Lecture 2.4 MinMax returns the best move</a>
 
 You may have noticed it already: our current `minMax(...)` implementation has
@@ -1231,6 +1233,120 @@ function minMax(node, maximizingPlayer) {
 ```
 
 Study this new `minMax(...)` implemention until it makes 100% sense to you.
+
+
+
+
+
+
+
+
+
+
+## <a name="lec2-5">Lecture 2.5 MinMax for Tic Tac Toe</a>
+
+To get `minMax(...)` to work with with the `TicTacToe` class,
+all we need to do is:
+
+1. Implement a `Node` class for `TicTacToe`
+2. Modify the `makeAiMove(...)` function to invoke `minMax(...)`
+
+Then, we will have an unbeatable Tic Tac Toe AI.
+
+### Implement a `Node` class for `TicTacToe`
+
+```js
+/*******************************************************************************
+ * Node class
+ ******************************************************************************/
+
+class Node {
+
+    // ticTacToe is an instance of the TicTacToe class
+    // move is either undefined (signifying this node is the root of the game
+    // game tree), or move is an instance of the Move class and represents
+    // the move from this node's parent to this node.
+    constructor(ticTacToe, move = undefined) {
+        this.ticTacToe = ticTacToe;
+        this.move = move;
+    }
+
+    getMove() {
+        return this.move;
+    }
+
+    isLeaf() {
+        return this.ticTacToe.gameOver != undefined;
+    }
+
+    // Player X is always the maximizing player
+    getScore() {
+        assert(this.ticTacToe.gameOver != undefined);
+
+        if (this.ticTacToe.gameOver.victor == undefined) {
+            return 0;
+        } else if (this.ticTacToe.gameOver.victor == PLAYER_X) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
+    getChildren() {
+        // ?
+    }
+}
+```
+
+The implementation of the `Node` class should be clear to you, except
+for the `getChildren()` method which we haven't yet defined.
+
+Here is a partial implementaton of the `getChildren()` method:
+
+```js
+/*******************************************************************************
+ * Node class
+ ******************************************************************************/
+
+class Node {
+
+    ...
+
+    // Recall, in a game tree every node (except a leaf node)
+    // is a parent. The children of a parent represent
+    // all the possible moves a parent can make.
+    getChildren() {
+
+        var childrenNodes = [];
+
+        for (var row = 0; row < NUM_ROWS; row++) {
+            for (var col = 0; col < NUM_COLS; col++) {
+            
+                // We need to add a `deepCopy()` method to the
+                // TicTacToe class, which returns a deep copy
+                // of the ticTacToe object. A deep copy is 
+                // necessary so that when we call
+                // childGame.makeMove(row, col) it doesn't modify
+                // the game state of the parent.
+                var childGame = this.ticTacToe.deepCopy();
+                
+                var move = childGame.makeMove(row, col);
+
+                if (move.valid) {
+                    var childNode = new Node(childGame, move);
+                    childrenNodes.push(childNode);
+                }
+            }
+        }
+
+        assert(childrenNodes.length > 0);
+
+        return childrenNodes;
+    }
+}
+```
+
+
 
 
 
