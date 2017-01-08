@@ -1156,10 +1156,12 @@ You may have noticed it already: our current `minMax(...)` implementation has
 a limitation. Specifically, `minMax(...)` returns the result of the game (assuming
 perfect play), but `minMax(...)` does not return the best move.
 
-For example,
+For example, in the game tree below, the root node's best move is to go to the right.
 
 <img src="crystal-balls-5.png">
 
+We want `minMax(root, true)` to return `"right"`, so that way the Red AI
+can be told to move `"right"`.
 
 
 
