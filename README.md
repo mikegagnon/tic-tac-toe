@@ -1250,6 +1250,7 @@ all we need to do is:
 
 1. Implement a `Node` class for `TicTacToe`
 2. Modify the `makeAiMove(...)` function to invoke `minMax(...)`
+3. Implement tests for the Tic Tac Toe AI
 
 Then, we will have an unbeatable Tic Tac Toe AI.
 
@@ -1328,6 +1329,9 @@ class Node {
                 // necessary so that when we call
                 // childGame.makeMove(row, col) it doesn't modify
                 // the game state of the parent.
+                //
+                // See your instructor for a discussion of
+                // deep copies.
                 var childGame = this.ticTacToe.deepCopy();
                 
                 var move = childGame.makeMove(row, col);
@@ -1346,10 +1350,214 @@ class Node {
 }
 ```
 
+### Implement `deepCopy()` for the `TicTacToe` class
 
+```js
+/*******************************************************************************
+ * TicTacToe class
+ ******************************************************************************/
+class TicTacToe {
 
+    ...
 
+    deepCopy() {
+        var newTicTacToe = new TicTacToe(this.player);
 
+        for (var row = 0; row < NUM_ROWS; row++) {
+            for (var col = 0; col < NUM_COLS; col++) {
+                newTicTacToe.matrix[row][col] = this.matrix[row][col];
+            }
+        }
+
+        // We do not need to make a deepCopy of this.gameOver
+        // because this.gameOver is immutable
+        newTicTacToe.gameOver = this.gameOver;
+
+        return newTicTacToe;
+    }
+}
+```
+
+### Ensure GameOver is immutable
+
+For a discusssion of immutability and its importance for 
+`TicTacToe`'s `deepCopy()` method, see your instructor.
+
+```js
+class GameOver {
+
+    
+    ...
+    
+    constructor(victor, victoryCells) {
+        this.victor = victor;
+        this.victoryCells = victoryCells;
+
+        // Make GameOver immutable
+        Object.freeze(this);
+        Object.freeze(this.victor);
+        Object.freeze(this.victoryCells);
+    }
+}
+```
+
+### Modify the `makeAiMove(...)` function to invoke `minMax(...)`
+
+```js
+function makeAiMove(game) {
+
+    assert(game.gameOver == undefined);
+
+    var node = new Node(game);
+
+    // The AI is always the O player, thus is always the minimizing player
+    var [bestMove, _] = minMax(node, false);
+
+    return game.makeMove(bestMove.row, bestMove.col);
+}
+```
+
+### Implement tests for the Tic Tac Toe AI
+
+```js
+/*******************************************************************************
+ * MinMax test for TicTacToe
+ ******************************************************************************/
+
+// Rather than deeply test minMax for TicTacToe, we will test to see if
+// minMax chooses the best move in "fork" situations.
+//
+// For additional info on forks, see:
+// See https://savvavy.wordpress.com/2015/02/01/how-to-beat-medium-cat-dog-toe/
+//
+// Fork test 1: block the fork
+// ===========================
+//
+// Here is the board:
+//
+// Figure 1.
+//
+//    O _ _
+//    _ X _
+//    _ _ X
+//
+// If X can play the bottom-left corner (or the top right corner),
+// then X acquires a "fork" position. Which means, there are two places
+// X can play to get three-in-a-row. To clarify, let's assume O makes a
+// bad move (0, 1):
+//
+// Figure 2.
+//
+//    O O _
+//    _ X _
+//    _ _ X
+//
+// Then, X would make the following move to create a fork (0, 2):
+//
+// Figure 3.
+//
+//    O O X
+//    _ X _
+//    _ _ X
+//
+// Now, X can score a three-in-a-row by playing (1, 2) or (2, 0).
+// Therefore, O must block one of those spots, but the other spot remains
+// open, and X is guaranteed a win:
+//
+// Figure 4:
+//
+//    O O X
+//    _ X O
+//    X _ X
+//
+// The point of all of this, is that in Figure 1, O must play (0, 2) or
+// (2, 0). If O doesn't make one of those moves, then X is guaranteed
+// to have the opportunity to make a fork and win the game.
+// 
+var game = new TicTacToe(PLAYER_O);
+
+game.matrix = [
+    [PLAYER_O, EMPTY,    EMPTY],
+    [EMPTY,    PLAYER_X, EMPTY],
+    [EMPTY,    EMPTY,    PLAYER_X]
+]
+
+var node = new Node(game);
+
+var [bestMove, _] = minMax(node, false);
+
+assert((bestMove.row == 0 && bestMove.col == 2) ||
+       (bestMove.row == 2 && bestMove.col == 0));
+
+// Fork test 2: create a fork
+// ==========================
+//
+// Figure 5.
+//
+//      _ _ _
+//      _ O X
+//      X O O
+//
+// In this configuration, O has a fork position, it can play
+// (0, 0) or (0, 1) to win. Regardless of X's move, O will win.
+//
+// Figure 6.
+//
+//      _ _ _
+//      _ _ X
+//      X O O
+//
+// Assuming it is O's turn here, O's optimal move is to play (1, 1)
+// to create the fork, which guarantees the win.
+// 
+// In this test, we create the board configuration from Figure 6
+// and test to see if O plays (1, 1)
+
+var game = new TicTacToe(PLAYER_O);
+game.matrix = [
+    [EMPTY,    EMPTY,    EMPTY],
+    [EMPTY,    EMPTY,    PLAYER_X],
+    [PLAYER_X, PLAYER_O, PLAYER_O]
+]
+
+var node = new Node(game);
+
+var [bestMove, _] = minMax(node, false);
+
+assert(bestMove.row == 1 && bestMove.col == 1);
+
+// Fork test 3: force a fork
+// =========================
+//
+// Figure 7.
+// 
+//      _ _ _
+//      _ _ X
+//      _ _ O
+//
+// Assuming it is O's turn, what is O's optimal move.
+//  - If O plays (2, 1), then X will be forced to play (2, 0)
+//    to avoid O getting three in a row.
+//  - Recall, this creates the board configuration from Figure 6.
+//  - Therefore, in Figure 7, if O plays (2, 1) O is guaranteed a win.
+//
+// In this test we create the board configuaration from Figure 7,
+// then test to see if the O player chooses the optimal move,
+// which is (2, 1)
+
+var game = new TicTacToe(PLAYER_O);
+game.matrix = [
+    [EMPTY,    EMPTY,    EMPTY],
+    [EMPTY,    EMPTY,    PLAYER_X],
+    [EMPTY,    EMPTY,    PLAYER_O]
+]
+
+var node = new Node(game);
+
+var [bestMove, _] = minMax(node, false);
+
+assert(bestMove.row == 2 && bestMove.col == 1);
+```
 
 
 
