@@ -253,6 +253,9 @@ class Node {
         }
     }
 
+    // Recall, in a game tree every node (except a leaf node)
+    // is a parent. The children of a parent represent
+    // all the possible moves a parent can make.
     getChildren() {
 
         var childrenNodes = [];
