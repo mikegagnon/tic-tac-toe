@@ -1171,6 +1171,19 @@ must have a method `getMove()` that returns a value (or object)
 representing the move from `node` to `child`.
 
 ```js
+// Arguments:
+//    node is the node for which we want to calculate its score
+//    maximizingPlayer is true if node wants to maximize its score
+//    maximizingPlayer is false if node wants to minimize its score
+//
+// minMax(node, player) returns the best possible score
+// that the player can achieve from this node
+//
+// node must be an object with the following methods:
+//    node.isLeaf()
+//    node.getScore()
+//    node.getChildren()
+//    node.getMove()
 function minMax(node, maximizingPlayer) {
     if (node.isLeaf()) {
         return [node.getMove(), node.getScore()];
@@ -1217,7 +1230,7 @@ function minMax(node, maximizingPlayer) {
 }
 ```
 
-
+Study this new `minMax(...)` implemention until it makes 100% sense to you.
 
 
 
