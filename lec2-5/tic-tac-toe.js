@@ -221,9 +221,12 @@ class TicTacToe {
  * Node class
  ******************************************************************************/
 
-// Player X is the maximizing player
 class Node {
 
+    // ticTacToe is an instance of the TicTacToe class
+    // move is either undefined (signifying this node is the root of the game
+    // game tree), or move is an instance of the Move class and represents
+    // the move from this node's parent to this node.
     constructor(ticTacToe, move = undefined) {
         this.ticTacToe = ticTacToe;
         this.move = move;
@@ -237,15 +240,16 @@ class Node {
         return this.ticTacToe.gameOver != undefined;
     }
 
+    // Player X is always the maximizing player
     getScore() {
         assert(this.ticTacToe.gameOver != undefined);
 
         if (this.ticTacToe.gameOver.victor == undefined) {
             return 0;
         } else if (this.ticTacToe.gameOver.victor == PLAYER_X) {
-            return Number.MAX_SAFE_INTEGER;
+            return 1;
         } else {
-            return Number.MIN_SAFE_INTEGER;;
+            return -1;
         }
     }
 
