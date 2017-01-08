@@ -854,6 +854,8 @@ Consider the following game tree:
 
 <img src="game-tree-3.png">
 
+
+
 Assuming it is Red's turn, and the game state matches the root node:
 
 1. Which move should Red make? Left or right?
@@ -902,6 +904,8 @@ How to determine the crystal ball for a given node
 #### Example 3
 
 <img src="crystal-balls-4.png">
+
+Do you see the crystal-ball pattern?
 
 ### Score values instead of crystal balls
 
