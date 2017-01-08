@@ -27,6 +27,7 @@ And familiarity with OOP (object-orient programming) in JavaScript.
   - [Lecture 2.2 Solving game trees](#lec2-2)
   - [Lecture 2.3 One-player framework](#lec2-3)
   - [Lecture 2.4 MinMax returns the best move](#lec2-4)
+  - [Lecture 2.5 MinMax for Tic Tac Toe](#lec2-5)
 
 # <a name="part1">Part 1. Two-player Tic Tac Toe</a>
 
@@ -1150,6 +1151,7 @@ function cellClick(row, col) {
 
 
 
+
 ## <a name="lec2-4">Lecture 2.4 MinMax returns the best move</a>
 
 You may have noticed it already: our current `minMax(...)` implementation has
@@ -1231,6 +1233,21 @@ function minMax(node, maximizingPlayer) {
 ```
 
 Study this new `minMax(...)` implemention until it makes 100% sense to you.
+
+
+
+
+
+
+
+
+
+
+## <a name="lec2-5">Lecture 2.5 MinMax for Tic Tac Toe</a>
+
+
+
+
 
 
 
