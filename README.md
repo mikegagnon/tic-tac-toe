@@ -888,7 +888,7 @@ to look at the crystal balls for its two children:
 - If the root Red node goes left, it is destined for a draw (assuming perfect play)
 - If the root Red node goes right, it is destined for a Blue victory (assuming perfect play)
 
-Therefore, the Red node inherits the crystal ball of its left child.
+Therefore, the Red node inherits the crystal ball of its left child, since draw is a better destiny than Blue victory.
 
 <img src="crystal-balls-2.png">
 
