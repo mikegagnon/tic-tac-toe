@@ -724,7 +724,7 @@ assert(minMax(nodeRoot, true)[1] == 0);
 //
 // See https://savvavy.wordpress.com/2015/02/01/how-to-beat-medium-cat-dog-toe/
 
-// Fork test 1
+// Fork test 1: block the fork
 var game = new TicTacToe(PLAYER_O);
 
 game.matrix = [
@@ -740,3 +740,32 @@ var [bestMove, _] = minMax(node, false);
 assert((bestMove.row == 0 && bestMove.col == 2) ||
        (bestMove.row == 2 && bestMove.col == 0));
 
+// Fork test 2: create a fork
+
+var game = new TicTacToe(PLAYER_O);
+game.matrix = [
+    [EMPTY,    EMPTY,    EMPTY],
+    [EMPTY,    EMPTY,    PLAYER_X],
+    [PLAYER_X, PLAYER_O, PLAYER_O]
+]
+
+var node = new Node(game);
+
+var [bestMove, _] = minMax(node, false);
+
+assert(bestMove.row == 1 && bestMove.col == 1);
+
+// Fork test 3: force a fork
+
+var game = new TicTacToe(PLAYER_O);
+game.matrix = [
+    [EMPTY,    EMPTY,    EMPTY],
+    [EMPTY,    EMPTY,    PLAYER_X],
+    [EMPTY,    EMPTY,    PLAYER_O]
+]
+
+var node = new Node(game);
+
+var [bestMove, _] = minMax(node, false);
+
+assert(bestMove.row == 2 && bestMove.col == 1);
