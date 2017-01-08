@@ -713,8 +713,30 @@ assert(minMax(nodeRoot, true)[0] == "right");
 assert(minMax(nodeRoot, true)[1] == 0);
 
 
+/*******************************************************************************
+ * MinMax test for TicTacToe
+ ******************************************************************************/
 
+// Rather than deeply test minMax for TicTacToe, we will test to see if
+// minMax chooses the best move in tricky situations. Namely, when the opponent
+// is about to create fork situation, the AI must block the attempt to create
+// a fork.
+//
+// See https://savvavy.wordpress.com/2015/02/01/how-to-beat-medium-cat-dog-toe/
 
+// Fork test 1
+var game = new TicTacToe(PLAYER_O);
 
+game.matrix = [
+    [PLAYER_O, EMPTY,    EMPTY],
+    [EMPTY,    PLAYER_X, EMPTY],
+    [EMPTY,    EMPTY,    PLAYER_X]
+]
 
+var node = new Node(game);
+
+var [bestMove, _] = minMax(node, false);
+
+assert((bestMove.row == 0 && bestMove.col == 2) ||
+       (bestMove.row == 2 && bestMove.col == 0));
 
