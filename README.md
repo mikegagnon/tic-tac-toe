@@ -1328,6 +1328,9 @@ class Node {
                 // necessary so that when we call
                 // childGame.makeMove(row, col) it doesn't modify
                 // the game state of the parent.
+                //
+                // See your instructor for a discussion of
+                // deep copies.
                 var childGame = this.ticTacToe.deepCopy();
                 
                 var move = childGame.makeMove(row, col);
