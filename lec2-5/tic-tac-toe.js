@@ -262,7 +262,15 @@ class Node {
 
         for (var row = 0; row < NUM_ROWS; row++) {
             for (var col = 0; col < NUM_COLS; col++) {
+
+                // We need to add a `deepCopy()` method to the
+                // TicTacToe class, which returns a deep copy
+                // of the ticTacToe object. A deep copy is 
+                // necessary so that when we call
+                // childGame.makeMove(row, col) it doesn't modify
+                // the game state of the parent.
                 var childGame = this.ticTacToe.deepCopy();
+
                 var move = childGame.makeMove(row, col);
 
                 if (move.valid) {
