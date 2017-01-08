@@ -307,6 +307,7 @@ function cellClick(row, col) {
 //    node.isLeaf()
 //    node.getScore()
 //    node.getChildren()
+//    node.getMove()
 function minMax(node, maximizingPlayer) {
     if (node.isLeaf()) {
         return [node.getMove(), node.getScore()];
