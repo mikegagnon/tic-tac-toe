@@ -1245,6 +1245,62 @@ Study this new `minMax(...)` implemention until it makes 100% sense to you.
 
 ## <a name="lec2-5">Lecture 2.5 MinMax for Tic Tac Toe</a>
 
+To get `minMax(...)` to work with with the `TicTacToe` class,
+all we need to do is:
+
+1. Implement a `Node` class for `TicTacToe`
+2. Modify the `makeAiMove(...)` function to invoke `minMax(...)`
+
+Then, we will have an unbeatable Tic Tac Toe AI.
+
+### Implement a `Node` class for `TicTacToe`
+
+```js
+/*******************************************************************************
+ * Node class
+ ******************************************************************************/
+
+class Node {
+
+    // ticTacToe is an instance of the TicTacToe class
+    // move is either undefined (signifying this node is the root of the game
+    // game tree), or move is an instance of the Move class and represents
+    // the move from this node's parent to this node.
+    constructor(ticTacToe, move = undefined) {
+        this.ticTacToe = ticTacToe;
+        this.move = move;
+    }
+
+    getMove() {
+        return this.move;
+    }
+
+    isLeaf() {
+        return this.ticTacToe.gameOver != undefined;
+    }
+
+    // Player X is always the maximizing player
+    getScore() {
+        assert(this.ticTacToe.gameOver != undefined);
+
+        if (this.ticTacToe.gameOver.victor == undefined) {
+            return 0;
+        } else if (this.ticTacToe.gameOver.victor == PLAYER_X) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
+    getChildren() {
+        // ?
+    }
+}
+```
+
+The implementation of the `Node` class should be clear to you, except
+for the `getChildren()` method which we haven't yet defined.
+
 
 
 
