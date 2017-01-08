@@ -26,6 +26,7 @@ And familiarity with OOP (object-orient programming) in JavaScript.
   - [Lecture 2.1 Introduction](#lec2-1)
   - [Lecture 2.2 Solving game trees](#lec2-2)
   - [Lecture 2.3 Implementing MinMax](#lec2-3)
+  - [Lecture 2.4 One-player framework](#lec2-4)
 
 # <a name="part1">Part 1. Two-player Tic Tac Toe</a>
 
@@ -814,7 +815,7 @@ A tree is a network of nodes that branch out like a tree.
 A *game tree* is a tree where:
 
 1. the nodes contain game states
-2. the children of a parent, represent the game states that are one step away from the parent. 
+2. the children of a parent represent the game states that are one step away from the parent. 
 
 Game trees might be easier to visualize than to explain in English. Here is an abridged diagram for the 
 Tic Tac Toe game tree:
@@ -853,12 +854,14 @@ Consider the following game tree:
 
 <img src="game-tree-3.png">
 
+
+
 Assuming it is Red's turn, and the game state matches the root node:
 
 1. Which move should Red make? Left or right?
 2. If both Red and Blue play perfectly, how will the game end? Red win, Blue win, or Draw?
 
-These questions may be much more difficult this time. If you're stumped, the following section
+These questions may be more difficult this time. If you're stumped, the following section
 will explain the trick for solving this puzzle.
 
 ### How to solve a game tree
@@ -887,13 +890,22 @@ to look at the crystal balls for its two children:
 - If the root Red node goes left, it is destined for a draw (assuming perfect play)
 - If the root Red node goes right, it is destined for a Blue victory (assuming perfect play)
 
-Therefore, the Red node inherits the crystal ball of its left child.
+Therefore, the Red node inherits the crystal ball of its left child, since draw is a better destiny than Blue victory.
 
 <img src="crystal-balls-2.png">
+
+#### Crystal Ball Algorithm
+
+How to determine the crystal ball for a given node:
+
+1. Look at the crystal balls for node's children
+2. node's crystal ball = the "best" crystal ball amongst node's children, where the notion of best is determined by whether it is blue's turn, or red's turn.
 
 #### Example 3
 
 <img src="crystal-balls-4.png">
+
+Do you see the crystal-ball pattern?
 
 ### Score values instead of crystal balls
 
