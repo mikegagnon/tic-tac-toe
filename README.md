@@ -1152,7 +1152,13 @@ function cellClick(row, col) {
 
 ## <a name="lec2-4">Lecture 2.4 MinMax returns the best move</a>
 
+You may have noticed it already: our current `minMax(...)` implementation has
+a limitation. Specifically, `minMax(...)` returns the result of the game (assuming
+perfect play), but `minMax(...)` does not return the best move.
 
+For example,
+
+<img src="crystal-balls-5.png">
 
 
 
