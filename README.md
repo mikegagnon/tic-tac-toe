@@ -1301,7 +1301,47 @@ class Node {
 The implementation of the `Node` class should be clear to you, except
 for the `getChildren()` method which we haven't yet defined.
 
+Here is a partial implementaton of the `getChildren()` method:
 
+```js
+/*******************************************************************************
+ * Node class
+ ******************************************************************************/
+
+class Node {
+
+    ...
+
+    // Recall, in a game tree every node (except a leaf node)
+    // is a parent. The children of a parent represent
+    // all the possible moves a parent can make.
+    getChildren() {
+
+        var childrenNodes = [];
+
+        for (var row = 0; row < NUM_ROWS; row++) {
+            for (var col = 0; col < NUM_COLS; col++) {
+            
+                // We need to add a `clone()` method to the
+                // TicTacToe class that returns a "deep copy"
+                // of the ticTacToe object
+                var childGame = this.ticTacToe.clone();
+                
+                var move = childGame.makeMove(row, col);
+
+                if (move.valid) {
+                    var childNode = new Node(childGame, move);
+                    childrenNodes.push(childNode);
+                }
+            }
+        }
+
+        assert(childrenNodes.length > 0);
+
+        return childrenNodes;
+    }
+}
+```
 
 
 
