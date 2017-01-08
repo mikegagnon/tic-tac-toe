@@ -284,7 +284,7 @@ function cellClick(row, col) {
     var move = GAME.makeMove(row, col);
     VIZ.drawMove(move);
 
-    if (!GAME.gameOver) {
+    if (move.valid && !GAME.gameOver) {
         move = makeAiMove(GAME);
         VIZ.drawMove(move);
     }
