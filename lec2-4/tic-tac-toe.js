@@ -309,35 +309,46 @@ function cellClick(row, col) {
 //    node.getChildren()
 function minMax(node, maximizingPlayer) {
     if (node.isLeaf()) {
-        return node.getScore();
+        return [node.getMove(), node.getScore()];
     }
 
     // If the node wants to maximize its score:
     if (maximizingPlayer) {
         var bestScore = Number.MIN_SAFE_INTEGER;
+        var bestMove = undefined;
 
         // find the child with the highest score
         var children = node.getChildren();
         for (var i = 0; i < children.length; i++) {
             var child = children[i];
-            var childScore = minMax(child, false);
-            bestScore = Math.max(childScore, bestScore)
+            var [_, childScore] = minMax(child, false);
+            bestScore = Math.max(childScore, bestScore);
+
+            if (bestScore == childScore) {
+                bestMove = child.getMove();
+            }
+
         }
-        return bestScore;
+        return [bestMove, bestScore];
     }
 
     // If the node wants to minimize its score:
     else {
         var bestScore = Number.MAX_SAFE_INTEGER;
+        var bestMove = undefined;
 
         // find the child with the lowest score
         var children = node.getChildren();
         for (var i = 0; i < children.length; i++) {
             var child = children[i];
-            var childScore = minMax(child, true);
-            bestScore = Math.min(childScore, bestScore)
+            var [_, childScore] = minMax(child, true);
+            bestScore = Math.min(childScore, bestScore);
+
+            if (bestScore == childScore) {
+                bestMove = child.getMove();
+            }
         }
-        return bestScore;
+        return [bestMove, bestScore];
     }
 }
 
@@ -515,9 +526,14 @@ assert(game.gameOver.victoryCells == undefined);
 
 class DummyNode {
 
-    constructor(children, score = undefined) {
+    constructor(children, move, score = undefined) {
         this.children = children;
+        this.move = move;
         this.score = score;
+    }
+
+    getMove() {
+        return this.move;
     }
 
     isLeaf() {
@@ -540,20 +556,36 @@ class DummyNode {
 // Red is maximinzing
 // Blue is minimizing
 
-// Red layer
-var redLeaf = new DummyNode([], 1);
-var blueLeaf = new DummyNode([], -1);
-var drawLeaf = new DummyNode([], 0);
+// Red layer leaf nodes
+var leafA = new DummyNode([], "left", 1);
+var leafB = new DummyNode([], "right", 0);
+var leafC = new DummyNode([], "left", -1);
+var leafD = new DummyNode([], "right", 0);
+
+var leafE = new DummyNode([], "left", 1);
+var leafF = new DummyNode([], "right", -1);
+var leafG = new DummyNode([], "left", 0);
+var leafH = new DummyNode([], "right", -1);
+
+var leafI = new DummyNode([], "left", 1);
+var leafJ = new DummyNode([], "right", 0);
+var leafK = new DummyNode([], "left", -1);
+var leafL = new DummyNode([], "right", 0);
+
+var leafM = new DummyNode([], "left", 1);
+var leafN = new DummyNode([], "right", 1);
+var leafO = new DummyNode([], "left", 1);
+var leafP = new DummyNode([], "right", 1);
 
 // Blue layer
-var nodeA = new DummyNode([redLeaf, drawLeaf]);
-var nodeB = new DummyNode([blueLeaf, drawLeaf]);
-var nodeC = new DummyNode([blueLeaf, redLeaf]);
-var nodeD = new DummyNode([blueLeaf, drawLeaf]);
-var nodeE = new DummyNode([redLeaf, drawLeaf]);
-var nodeF = new DummyNode([blueLeaf, drawLeaf]);
-var nodeG = new DummyNode([redLeaf, redLeaf]);
-var nodeH = new DummyNode([redLeaf, redLeaf]);
+var nodeA = new DummyNode([leafA, leafB]);
+var nodeB = new DummyNode([leafC, leafD]);
+var nodeC = new DummyNode([leafE, leafF]);
+var nodeD = new DummyNode([leafG, leafH]);
+var nodeE = new DummyNode([leafI, leafJ]);
+var nodeF = new DummyNode([leafK, leafL]);
+var nodeG = new DummyNode([leafM, leafN]);
+var nodeH = new DummyNode([leafO, leafP]);
 
 // Red layer
 var nodeI = new DummyNode([nodeA, nodeB]);
@@ -568,28 +600,25 @@ var nodeN = new DummyNode([nodeK, nodeL]);
 // Red layer
 var nodeRoot = new DummyNode([nodeM, nodeN]);
 
-assert(minMax(redLeaf, true) == 1);
-assert(minMax(blueLeaf, true) == -1);
-assert(minMax(drawLeaf, true) == 0);
+// Assertions
+assert(minMax(nodeA, false)[1] == 0);
+assert(minMax(nodeB, false)[1] == -1);
+assert(minMax(nodeC, false)[1] == -1);
+assert(minMax(nodeD, false)[1] == -1);
+assert(minMax(nodeE, false)[1] == 0);
+assert(minMax(nodeF, false)[1] == -1);
+assert(minMax(nodeG, false)[1] == 1);
+assert(minMax(nodeH, false)[1] == 1);
 
-assert(minMax(nodeA, false) == 0);
-assert(minMax(nodeB, false) == -1);
-assert(minMax(nodeC, false) == -1);
-assert(minMax(nodeD, false) == -1);
-assert(minMax(nodeE, false) == 0);
-assert(minMax(nodeF, false) == -1);
-assert(minMax(nodeG, false) == 1);
-assert(minMax(nodeH, false) == 1);
+assert(minMax(nodeI, true)[1] == 0);
+assert(minMax(nodeJ, true)[1] == -1);
+assert(minMax(nodeK, true)[1] == 0);
+assert(minMax(nodeL, true)[1] == 1);
 
-assert(minMax(nodeI, true) == 0);
-assert(minMax(nodeJ, true) == -1);
-assert(minMax(nodeK, true) == 0);
-assert(minMax(nodeL, true) == 1);
+assert(minMax(nodeM, false)[1] == -1);
+assert(minMax(nodeN, false)[1] == 0);
 
-assert(minMax(nodeM, false) == -1);
-assert(minMax(nodeN, false) == 0);
-
-assert(minMax(nodeRoot, true) == 0);
+assert(minMax(nodeRoot, true)[1] == 0);
 
 
 
