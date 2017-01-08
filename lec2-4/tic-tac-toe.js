@@ -578,46 +578,61 @@ var leafO = new DummyNode([], "left", 1);
 var leafP = new DummyNode([], "right", 1);
 
 // Blue layer
-var nodeA = new DummyNode([leafA, leafB]);
-var nodeB = new DummyNode([leafC, leafD]);
-var nodeC = new DummyNode([leafE, leafF]);
-var nodeD = new DummyNode([leafG, leafH]);
-var nodeE = new DummyNode([leafI, leafJ]);
-var nodeF = new DummyNode([leafK, leafL]);
-var nodeG = new DummyNode([leafM, leafN]);
-var nodeH = new DummyNode([leafO, leafP]);
+var nodeA = new DummyNode([leafA, leafB], "left");
+var nodeB = new DummyNode([leafC, leafD], "right");
+var nodeC = new DummyNode([leafE, leafF], "left");
+var nodeD = new DummyNode([leafG, leafH], "right");
+var nodeE = new DummyNode([leafI, leafJ], "left");
+var nodeF = new DummyNode([leafK, leafL], "right");
+var nodeG = new DummyNode([leafM, leafN], "left");
+var nodeH = new DummyNode([leafO, leafP], "right");
 
 // Red layer
-var nodeI = new DummyNode([nodeA, nodeB]);
-var nodeJ = new DummyNode([nodeC, nodeD]);
-var nodeK = new DummyNode([nodeE, nodeF]);
-var nodeL = new DummyNode([nodeG, nodeH]);
+var nodeI = new DummyNode([nodeA, nodeB], "left");
+var nodeJ = new DummyNode([nodeC, nodeD], "right");
+var nodeK = new DummyNode([nodeE, nodeF], "left");
+var nodeL = new DummyNode([nodeG, nodeH], "right");
 
 // Blue layer
-var nodeM = new DummyNode([nodeI, nodeJ]);
-var nodeN = new DummyNode([nodeK, nodeL]);
+var nodeM = new DummyNode([nodeI, nodeJ], "left");
+var nodeN = new DummyNode([nodeK, nodeL], "right");
 
 // Red layer
-var nodeRoot = new DummyNode([nodeM, nodeN]);
+var nodeRoot = new DummyNode([nodeM, nodeN], undefined);
 
 // Assertions
+assert(minMax(nodeA, false)[0] == "right");
 assert(minMax(nodeA, false)[1] == 0);
+assert(minMax(nodeB, false)[0] == "left");
 assert(minMax(nodeB, false)[1] == -1);
+assert(minMax(nodeC, false)[0] == "right");
 assert(minMax(nodeC, false)[1] == -1);
+assert(minMax(nodeD, false)[0] == "right");
 assert(minMax(nodeD, false)[1] == -1);
+assert(minMax(nodeE, false)[0] == "right");
 assert(minMax(nodeE, false)[1] == 0);
+assert(minMax(nodeF, false)[0] == "left");
 assert(minMax(nodeF, false)[1] == -1);
+//assert(minMax(nodeG, false)[0] == "turn doesn't matter");
 assert(minMax(nodeG, false)[1] == 1);
+//assert(minMax(nodeH, false)[0] == "turn doesn't matter");
 assert(minMax(nodeH, false)[1] == 1);
 
+assert(minMax(nodeI, true)[0] == "left");
 assert(minMax(nodeI, true)[1] == 0);
+//assert(minMax(nodeJ, true)[0] == "turn doesn't matter");
 assert(minMax(nodeJ, true)[1] == -1);
+assert(minMax(nodeK, true)[0] == "left");
 assert(minMax(nodeK, true)[1] == 0);
+assert(minMax(nodeL, true)[0] == "right");
 assert(minMax(nodeL, true)[1] == 1);
 
+assert(minMax(nodeM, false)[0] == "right");
 assert(minMax(nodeM, false)[1] == -1);
+assert(minMax(nodeN, false)[0] == "left");
 assert(minMax(nodeN, false)[1] == 0);
 
+assert(minMax(nodeRoot, true)[0] == "right");
 assert(minMax(nodeRoot, true)[1] == 0);
 
 
