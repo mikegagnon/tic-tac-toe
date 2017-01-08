@@ -25,8 +25,7 @@ And familiarity with OOP (object-orient programming) in JavaScript.
 - [Part 2. Artificial Intelligence](#part2)
   - [Lecture 2.1 Introduction](#lec2-1)
   - [Lecture 2.2 Solving game trees](#lec2-2)
-  - [Lecture 2.3 Implementing MinMax](#lec2-3)
-  - [Lecture 2.4 One-player framework](#lec2-4)
+  - [Lecture 2.3 One-player framework](#lec2-3)
 
 # <a name="part1">Part 1. Two-player Tic Tac Toe</a>
 
@@ -803,7 +802,18 @@ MinMax is neither a deep intelligence, nor is it creative.
 
 Rather, MinMax is plain, boring, simple, beautiful, brute force. You will see how and why later.
 
-For now, we must investigate one of the prerequistes for MinMax, namely *game trees*.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## <a name="lec2-2">Lecture 2.2 Solving game trees</a>
@@ -1054,7 +1064,91 @@ assert(minMax(nodeN, false) == 0);
 assert(minMax(nodeRoot, true) == 0);
 ```
 
-## <a name="lec2-3">Implementing MinMax</a>
+
+
+
+
+
+
+
+
+## <a name="lec2-3">One-player framework</a>
+
+Before applying MinMax to Tic Tac Toe, lets modify our game
+to be a one-player game, using an stupid AI.
+
+It should be clear to what these code changes are, and how they work,
+by studying the code.
+
+### `makeAiMove(...)`
+
+```js
+/*******************************************************************************
+ * AI code
+ ******************************************************************************/
+
+function makeAiMove(game) {
+
+    assert(!game.gameOver);
+
+    for (var row = 0; row < NUM_ROWS; row++) {
+        for (var col = 0; col < NUM_COLS; col++) {
+            if (game.matrix[row][col] == EMPTY) {
+                return game.makeMove(row, col);
+            }
+        }
+    }
+}
+```
+
+### `FIRST_PLAYER`
+
+Near the top of `tic-tac-toe.js` add the following:
+
+```js
++var FIRST_PLAYER = undefined;
++
++if (Math.random() < 0.5) {
++    FIRST_PLAYER = PLAYER_X;
++} else {
++    FIRST_PLAYER = PLAYER_O;
++}
+```
+
+### New controller
+
+```js
+/*******************************************************************************
+ * Controller code
+ ******************************************************************************/
+var GAME = new TicTacToe(FIRST_PLAYER);
+var VIZ = new Viz(100);
+
+if (FIRST_PLAYER == PLAYER_O) {
+    move = makeAiMove(GAME);
+    VIZ.drawMove(move);
+}
+
+function cellClick(row, col) {
+
+    var move = GAME.makeMove(row, col);
+    VIZ.drawMove(move);
+
+    if (!GAME.gameOver) {
+        move = makeAiMove(GAME);
+        VIZ.drawMove(move);
+    }
+
+}
+```
+
+
+
+
+
+
+
+
 
 
 
