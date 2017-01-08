@@ -892,6 +892,13 @@ Therefore, the Red node inherits the crystal ball of its left child, since draw 
 
 <img src="crystal-balls-2.png">
 
+#### Crystal Ball Algorithm
+
+How to determine the crystal ball for a given node
+
+1. Look at the crystal balls for node's children
+2. node's crystal ball = the "best" crystal ball amongst node's children, where the notion of best is determined by whether it is blue's turn, or red's turn.
+
 #### Example 3
 
 <img src="crystal-balls-4.png">
