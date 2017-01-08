@@ -1349,8 +1349,72 @@ class Node {
 }
 ```
 
+### Implement `deepCopy()` for the `TicTacToe` class
 
+```js
+/*******************************************************************************
+ * TicTacToe class
+ ******************************************************************************/
+class TicTacToe {
 
+    ...
+
+    deepCopy() {
+        var newTicTacToe = new TicTacToe(this.player);
+
+        for (var row = 0; row < NUM_ROWS; row++) {
+            for (var col = 0; col < NUM_COLS; col++) {
+                newTicTacToe.matrix[row][col] = this.matrix[row][col];
+            }
+        }
+
+        // We do not need to make a deepCopy of this.gameOver
+        // because this.gameOver is immutable
+        newTicTacToe.gameOver = this.gameOver;
+
+        return newTicTacToe;
+    }
+}
+```
+
+### Ensure GameOver is immutable
+
+For a discusssion of immutability and its importance for 
+`TicTacToe`'s `deepCopy()` method, see your instructor.
+
+```js
+class GameOver {
+
+    
+    ...
+    
+    constructor(victor, victoryCells) {
+        this.victor = victor;
+        this.victoryCells = victoryCells;
+
+        // Make GameOver immutable
+        Object.freeze(this);
+        Object.freeze(this.victor);
+        Object.freeze(this.victoryCells);
+    }
+}
+```
+
+### Modify the `makeAiMove(...)` function to invoke `minMax(...)`
+
+```js
+function makeAiMove(game) {
+
+    assert(game.gameOver == undefined);
+
+    var node = new Node(game);
+
+    // The AI is always the O player, thus is always the minimizing player
+    var [bestMove, _] = minMax(node, false);
+
+    return game.makeMove(bestMove.row, bestMove.col);
+}
+```
 
 
 
