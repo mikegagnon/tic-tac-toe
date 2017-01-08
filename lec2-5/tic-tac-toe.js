@@ -79,6 +79,11 @@ class GameOver {
         this.victor = victor;
         this.victoryCells = victoryCells;
     }
+
+    clone() {
+        // this.victoryCells is immutable, so no need to deep copy it
+        return new GameOver(this.victor, this.victoryCells);
+    }
 }
 
 /*******************************************************************************
@@ -106,6 +111,24 @@ class TicTacToe {
         // If the game is not over, then this.gameOver is undefined;
         this.gameOver = undefined;
 
+    }
+
+    clone() {
+        var newTicTacToe = new TicTacToe(this.player);
+
+        for (var row = 0; row < NUM_ROWS; row++) {
+            for (var col = 0; col < NUM_COLS; col++) {
+                newTicTacToe.matrix[row][col] = this.matrix[row][col];
+            }
+        }
+
+        if (this.gameOver == undefined) {
+            newTicTacToe.gameOver = undefined;
+        } else {
+            newTicTacToe.gameOver = this.gameOver.clone();
+        }
+
+        return newTicTacToe;
     }
 
     checkVictoryHorizontal() {
@@ -200,6 +223,60 @@ class TicTacToe {
 }
 
 /*******************************************************************************
+ * Node class
+ ******************************************************************************/
+
+// Player X is the maximizing player
+class Node {
+
+    constructor(ticTacToe, move = undefined) {
+        this.ticTacToe = ticTacToe;
+        this.move = move;
+    }
+
+    getMove() {
+        return this.move;
+    }
+
+    isLeaf() {
+        return this.ticTacToe.gameOver != undefined;
+    }
+
+    getScore() {
+        assert(this.ticTacToe.gameOver != undefined);
+
+        if (this.ticTacToe.gameOver.victor == undefined) {
+            return 0;
+        } else if (this.ticTacToe.gameOver.victor == PLAYER_X) {
+            return Number.MAX_SAFE_INTEGER;
+        } else {
+            return Number.MIN_SAFE_INTEGER;;
+        }
+    }
+
+    getChildren() {
+
+        var children = [];
+
+        for (var row = 0; row < NUM_ROWS; row++) {
+            for (var col = 0; col < NUM_COLS; col++) {
+                var newGame = this.ticTacToe.clone();
+                var move = newGame.makeMove(row, col);
+
+                if (move.valid) {
+                    var child = new Node(newGame, move);
+                    children.push(child);
+                }
+            }
+        }
+
+        assert(children.length > 0);
+
+        return children;
+    }
+}
+
+/*******************************************************************************
  * Vizualization code
  ******************************************************************************/
  class Viz {
@@ -257,15 +334,14 @@ class TicTacToe {
 
 function makeAiMove(game) {
 
-    assert(!game.gameOver);
+    assert(game.gameOver == undefined);
 
-    for (var row = 0; row < NUM_ROWS; row++) {
-        for (var col = 0; col < NUM_COLS; col++) {
-            if (game.matrix[row][col] == EMPTY) {
-                return game.makeMove(row, col);
-            }
-        }
-    }
+    var node = new Node(game);
+
+    // The AI is always the O player, thus is always the minimizing player
+    var [bestMove, _] = minMax(node, false);
+
+    return game.makeMove(bestMove.row, bestMove.col);
 }
 
 /*******************************************************************************
