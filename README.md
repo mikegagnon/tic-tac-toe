@@ -1163,6 +1163,63 @@ For example, in the game tree below, the root node's best move is to go to the r
 We want `minMax(root, true)` to return `"right"`, so that way the Red AI
 can be told to move `"right"`.
 
+Below is an updated `minMax(...)` function that does just that.
+Now it returns a pair `[bestMove, bestScore]`.
+
+In order for this new `minMax(...)` to work, `Node` objects
+must have a method `getMove()` that returns a value (or object)
+representing the move from `node` to `child`.
+
+```js
+function minMax(node, maximizingPlayer) {
+    if (node.isLeaf()) {
+        return [node.getMove(), node.getScore()];
+    }
+
+    // If the node wants to maximize its score:
+    if (maximizingPlayer) {
+        var bestScore = Number.MIN_SAFE_INTEGER;
+        var bestMove = undefined;
+
+        // find the child with the highest score
+        var children = node.getChildren();
+        for (var i = 0; i < children.length; i++) {
+            var child = children[i];
+            var [_, childScore] = minMax(child, false);
+            bestScore = Math.max(childScore, bestScore);
+
+            if (bestScore == childScore) {
+                bestMove = child.getMove();
+            }
+
+        }
+        return [bestMove, bestScore];
+    }
+
+    // If the node wants to minimize its score:
+    else {
+        var bestScore = Number.MAX_SAFE_INTEGER;
+        var bestMove = undefined;
+
+        // find the child with the lowest score
+        var children = node.getChildren();
+        for (var i = 0; i < children.length; i++) {
+            var child = children[i];
+            var [_, childScore] = minMax(child, true);
+            bestScore = Math.min(childScore, bestScore);
+
+            if (bestScore == childScore) {
+                bestMove = child.getMove();
+            }
+        }
+        return [bestMove, bestScore];
+    }
+}
+```
+
+
+
+
 
 
 
