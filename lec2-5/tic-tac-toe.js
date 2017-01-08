@@ -81,6 +81,7 @@ class GameOver {
 
         // Make GameOver immutable
         Object.freeze(this);
+        Object.freeze(this.victor);
         Object.freeze(this.victoryCells);
     }
 }
