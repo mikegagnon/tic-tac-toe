@@ -26,6 +26,7 @@ And familiarity with OOP (object-orient programming) in JavaScript.
   - [Lecture 2.1 Introduction](#lec2-1)
   - [Lecture 2.2 Solving game trees](#lec2-2)
   - [Lecture 2.3 One-player framework](#lec2-3)
+  - [Lecture 2.4 MinMax returns the best move](#lec2-4)
 
 # <a name="part1">Part 1. Two-player Tic Tac Toe</a>
 
@@ -1072,7 +1073,7 @@ assert(minMax(nodeRoot, true) == 0);
 
 
 
-## <a name="lec2-3">One-player framework</a>
+## <a name="lec2-3">Lecture 2.3 One-player framework</a>
 
 Before applying MinMax to Tic Tac Toe, lets modify our game
 to be a one-player game, using an stupid AI.
@@ -1143,6 +1144,13 @@ function cellClick(row, col) {
 ```
 
 
+
+
+
+
+
+
+## <a name="lec2-4">Lecture 2.4 MinMax returns the best move</a>
 
 
 
