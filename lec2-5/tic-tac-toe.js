@@ -108,7 +108,7 @@ class TicTacToe {
 
     }
 
-    clone() {
+    deepCopy() {
         var newTicTacToe = new TicTacToe(this.player);
 
         for (var row = 0; row < NUM_ROWS; row++) {
@@ -262,7 +262,7 @@ class Node {
 
         for (var row = 0; row < NUM_ROWS; row++) {
             for (var col = 0; col < NUM_COLS; col++) {
-                var childGame = this.ticTacToe.clone();
+                var childGame = this.ticTacToe.deepCopy();
                 var move = childGame.makeMove(row, col);
 
                 if (move.valid) {
