@@ -79,11 +79,6 @@ class GameOver {
         this.victor = victor;
         this.victoryCells = victoryCells;
     }
-
-    clone() {
-        // this.victoryCells is immutable, so no need to deep copy it
-        return new GameOver(this.victor, this.victoryCells);
-    }
 }
 
 /*******************************************************************************
@@ -125,7 +120,7 @@ class TicTacToe {
         if (this.gameOver == undefined) {
             newTicTacToe.gameOver = undefined;
         } else {
-            newTicTacToe.gameOver = this.gameOver.clone();
+            newTicTacToe.gameOver = this.gameOver;
         }
 
         return newTicTacToe;
