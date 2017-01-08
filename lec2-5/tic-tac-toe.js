@@ -255,23 +255,23 @@ class Node {
 
     getChildren() {
 
-        var children = [];
+        var childrenNodes = [];
 
         for (var row = 0; row < NUM_ROWS; row++) {
             for (var col = 0; col < NUM_COLS; col++) {
-                var newGame = this.ticTacToe.clone();
-                var move = newGame.makeMove(row, col);
+                var childGame = this.ticTacToe.clone();
+                var move = childGame.makeMove(row, col);
 
                 if (move.valid) {
-                    var child = new Node(newGame, move);
-                    children.push(child);
+                    var childNode = new Node(childGame, move);
+                    childrenNodes.push(childNode);
                 }
             }
         }
 
-        assert(children.length > 0);
+        assert(childrenNodes.length > 0);
 
-        return children;
+        return childrenNodes;
     }
 }
 
