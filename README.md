@@ -32,13 +32,13 @@ And familiarity with OOP (object-orient programming) in JavaScript.
 
 ## <a name="lec0">Lecture 0. Overview</a>
 
-1. We develop a bare-minimum framework for Tic Tac Toe class, which includes
+1. We develop a bare-minimum framework for Tic Tac Toe class, which includes](#lec1-1)
   - A bare-minimum `index.html`
   - A bare-minumum `tic-tac-toe.js`, with a bare-minimum `TicTacToe` class, which includes:
     - A bare-minimum `constructor(...)`, and
     - A bare-minimum `makeMove(...)` function
   - Tests for the `makeMove(...)` function
-2. We develop a bare-minimum vizualization framework
+2. [We develop a bare-minimum vizualization framework](#lec1-2)
   - We create a new `style.css` file
   - We update `index.html` to have a grid of cells
   - We define the `Move` class, which acts as the interface between `TicTacToe` and `Viz`
@@ -50,6 +50,13 @@ And familiarity with OOP (object-orient programming) in JavaScript.
     - A global `GAME` variable,
     - A global `VIZ` variable, and
     - The `cellClick(...)` method
+3. [We add X's and O'x to the game (as opposed to just X's)](#lec1-3)
+    - Update `makeMove(...)`
+      - Check to see whether or not the move is valid
+      - Alternate between player-X and player-O
+      - Fix broken tests
+      - Write new tests to test new functionality
+4. 
 
   
   
