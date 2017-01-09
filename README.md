@@ -15,6 +15,7 @@ And familiarity with OOP (object-orient programming) in JavaScript.
 
 ## Contents
 
+- [Lecture 0. Overview](#lec0)
 - [Part 1. Two-player Tic Tac Toe](#part1)
   - [Lecture 1.1 Framework for `TicTacToe` class](#lec1-1)
   - [Lecture 1.2 Framework for controller and for `Viz` class](#lec1-2)
@@ -28,6 +29,18 @@ And familiarity with OOP (object-orient programming) in JavaScript.
   - [Lecture 2.3 One-player framework](#lec2-3)
   - [Lecture 2.4 MinMax returns the best move](#lec2-4)
   - [Lecture 2.5 MinMax for Tic Tac Toe](#lec2-5)
+
+## <a name="lec0">Lecture 0. Overview</a>
+
+1. We develop a bare-minimum framework for Tic Tac Toe class, which includes
+  - A bare-minimum `index.html`
+  - A bare-minumum `tic-tac-toe.js`, with a bare-minimum `TicTacToe` class, which includes:
+    - A bare-minimum `constructor`, and
+    - A bare-minimum `makeMove(...)` function
+  - Tests for the `makeMove(...)` function
+  
+  
+
 
 # <a name="part1">Part 1. Two-player Tic Tac Toe</a>
 
