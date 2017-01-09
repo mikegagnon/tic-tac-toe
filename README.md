@@ -1330,8 +1330,6 @@ class Node {
                 // childGame.makeMove(row, col) it doesn't modify
                 // the game state of the parent.
                 //
-                // See your instructor for a discussion of
-                // deep copies.
                 var childGame = this.ticTacToe.deepCopy();
                 
                 var move = childGame.makeMove(row, col);
@@ -1349,6 +1347,8 @@ class Node {
     }
 }
 ```
+
+For a mini lesson on deep copies, see [Deep Copy](https://github.com/mikegagnon/deep-copy/blob/master/README.md)
 
 ### Implement `deepCopy()` for the `TicTacToe` class
 
